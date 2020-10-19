@@ -29,10 +29,9 @@ export default function Header() {
                 </div>
                 <nav className='large-screen-nav'>
                     <ul className='nav'>
-                        <li><Link to="#">Menu 1</Link></li>
-                        <li><Link to="#">Menu 2</Link></li>
-                        <li><Link to="#">Menu 3</Link></li>
-                        <li><Link to="#">Menu 4</Link></li>
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/myLists">My Saved Lunches</Link></li>
+                        <li><Link to="/pantry">Pantry</Link></li>
                     </ul>
                 </nav>
             </>
