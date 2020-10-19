@@ -1,3 +1,3 @@
 export default {
-    API_ENDPOINT: 'https://cutthroat-losers-apiv2.herokuapp.com'
+    API_ENDPOINT: 'https://tinylunchesapi.herokuapp.com'
 }
