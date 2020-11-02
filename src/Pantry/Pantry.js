@@ -1,8 +1,16 @@
-import React from "react"
+import React, { useState } from "react"
+import ItemModal from "../ItemModal/ItemModal"
 
-class Pantry extends React.Component {
+export default function Pantry (props) {
 
-    render () {
+    const [isVeggieOpen, setIsVeggieOpen] = useState(false);
+    const [isFruitOpen, setIsFruitOpen] = useState(false);
+    const [isCarbOpen, setIsCarbOpen] = useState(false);
+    const [isProteinOpen, setIsProteinOpen] = useState(false);
+    const [isDrinkOpen, setIsDrinkOpen] = useState(false);
+    const [isDessertOpen, setIsDessertOpen] = useState(false);
+    const [isComboOpen, setIsComboOpen] = useState(false);
+
 
         return(
             <>
@@ -10,30 +18,37 @@ class Pantry extends React.Component {
                     <div className="item-categories-wrapper">
                         <div className="item-category-top-row">
                             <div className="item-wrappers-top border1">
-                                <img className="icon" alt="carbs" src={require("../Images/Bread50-50.png")}></img>
+                            <input className="icon" type="image" onClick={() => setIsCarbOpen(true)} alt="carbs" src={require("../Images/Bread50-50.png")} />
+                            <ItemModal data={props.data.masterCarb} itemType="carb" open={isCarbOpen} onClose={() => setIsCarbOpen(false)} />
                             </div>
                             <div className="item-wrappers-top border1">
-                                <img className="icon" alt="veggies" src={require("../Images/carrot50-50.png")}></img>
+                            <input className="icon" type="image" onClick={() => setIsVeggieOpen(true)} alt="veggies" src={require("../Images/carrot50-50.png")} />
+                            <ItemModal data={props.data.masterVegetable} itemType="veggie" open={isVeggieOpen} onClose={() => setIsVeggieOpen(false)} />
                             </div>
                             <div className="item-wrappers-top border1">
-                                <img className="icon" alt="fruits" src={require("../Images/Grapes50-50.png")}></img>
+                            <input className="icon" type="image" onClick={() => setIsFruitOpen(true)} alt="fruits" src={require("../Images/Grapes50-50.png")} />
+                            <ItemModal data={props.data.masterFruit} itemType="fruit" open={isFruitOpen} onClose={() => setIsFruitOpen(false)} />
                             </div>
                             <div className="item-wrappers-top border1">
-                                <img className="icon" alt="protein" src={require("../Images/Protein50-50.png")}></img>
+                            <input className="icon" type="image" onClick={() => setIsProteinOpen(true)} alt="protein" src={require("../Images/Protein50-50.png")} />
+                            <ItemModal data={props.data.masterProtein} itemType="protein" open={isProteinOpen} onClose={() => setIsProteinOpen(false)} />
                             </div>
                             <div className="item-wrappers-top">
-                                <img className="icon" alt="drinks" src={require("../Images/Drink50-50.png")}></img>
+                            <input className="icon" type="image" onClick={() => setIsDrinkOpen(true)} alt="drinks" src={require("../Images/Drink50-50.png")} />
+                            <ItemModal data={props.data.masterDrink} itemType="drink" open={isDrinkOpen} onClose={() => setIsDrinkOpen(false)} />
                             </div>
                         </div>
                         <div className="item-category-bottom-row">
                             <div className="item-wrappers-bottom-left-right">
-                                <img className="icon" alt="dessert" src={require("../Images/Cake50-50.png")}></img>
+                            <input className="icon" type="image" onClick={() => setIsDessertOpen(true)} alt="dessert" src={require("../Images/Cake50-50.png")} />
+                            <ItemModal data={props.data.masterDessert} itemType="dessert" open={isDessertOpen} onClose={() => setIsDessertOpen(false)} />
                             </div>
                             <div className="item-wrappers-bottom-middle border2">
                                 <button>Print Shopping list</button>
                             </div>
                             <div className="item-wrappers-bottom-left-right">
-                                <img className="icon" alt="dessert" src={require("../Images/Combo50-50.png")}></img>
+                            <input className="icon" type="image" onClick={() => setIsComboOpen(true)} alt="dessert" src={require("../Images/Combo50-50.png")} />
+                            <ItemModal data={props.data.masterCombo} itemType="combo" open={isComboOpen} onClose={() => setIsComboOpen(false)} />
                             </div>
                         </div>
                     </div>
@@ -51,6 +66,3 @@ class Pantry extends React.Component {
             </>
         )
     }
-}
-
-export default Pantry
