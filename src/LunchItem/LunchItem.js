@@ -16,10 +16,13 @@ class LunchItem extends React.Component {
   render() {
     return (
       <div className="modal-item">
-        {this.props.name}
-        <br></br>
-        {this.props.categories}
-        <button onClick={this.removeItem}>Remove from Lunch</button>
+        <div className="modal-item-left">
+          <div className="modal-item-left-top">{this.props.name}</div>
+          <div className="modal-item-left-bottom">{this.props.categories}</div>
+        </div>
+        <div className="modal-item-right">
+          <button onClick={this.removeItem}>Remove</button>
+        </div>
       </div>
     );
   }

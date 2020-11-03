@@ -447,6 +447,12 @@ class App extends React.Component {
     }
   };
 
+  clearLunchList = () => {
+    this.setState({
+      userSelections: [],
+    });
+  };
+
   render() {
     console.log(this.state.userSelections, "user selections");
 
@@ -454,6 +460,7 @@ class App extends React.Component {
       userSelections: this.state.userSelections,
       handleAddToLunch: this.addToLunch,
       handleRemoveFromLunch: this.removeFromLunch,
+      handleClearLunchList: this.clearLunchList,
     };
 
     return (
