@@ -77,7 +77,7 @@ export default class Header extends React.Component {
                   to="/myLists"
                   onClick={() => this.setState({ showMenu: false })}
                 >
-                  My Saved Lunches
+                  Saved Lunches
                 </Link>
               </li>
               <li>
@@ -97,7 +97,7 @@ export default class Header extends React.Component {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/myLists">My Saved Lunches</Link>
+              <Link to="/myLists">Saved Lunches</Link>
             </li>
             <li>
               <Link to="/pantry">Pantry</Link>

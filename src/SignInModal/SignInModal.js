@@ -73,7 +73,10 @@ export default class SignInModal extends React.Component {
                 type="password"
                 id="LoginForm__password"
               ></input>
-              <button type="submit">Sign In</button>
+              <button type="submit" id="sign-in-btn" className="btn">
+                <span class="noselect">Sign In</span>
+                <div className="circle"></div>
+              </button>
             </form>
           </div>
           <div className="signup-modal-wrapper">
@@ -103,7 +106,10 @@ export default class SignInModal extends React.Component {
                 required
                 id="RegistrationForm__password"
               ></input>
-              <button type="submit">Register</button>
+              <button type="submit" id="sign-up-btn" className="btn">
+                <span class="noselect">Sign Up</span>
+                <div className="circle"></div>
+              </button>
             </form>
           </div>
           <div className="modal-close-wrapper">

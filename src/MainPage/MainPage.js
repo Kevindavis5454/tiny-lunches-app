@@ -168,19 +168,23 @@ class MainPage extends React.Component {
                 />
               </div>
               <div className="search-button-wrapper">
-                <button className="search-button">Search</button>
+                <button id="search-btn" className="btn">
+                  <span class="noselect">Search</span>
+                  <div className="circle"></div>
+                </button>
               </div>
             </form>
             <div className="lunch-items-wrapper">
               <div className="lunch-items-inner-wrapper">{renderList}</div>
             </div>
             <div className="lunch-save-button-wrapper">
-              <button className="lunch-save-button">Save</button>
-              <button
-                onClick={this.clearLunchList}
-                className="lunch-clear-button"
-              >
-                Clear
+              <button className="btn">
+                <span class="noselect">Save</span>
+                <div className="circle"></div>
+              </button>
+              <button className="btn" onClick={this.clearLunchList}>
+                <span class="noselect">Clear</span>
+                <div className="circle"></div>
               </button>
             </div>
           </div>
@@ -198,7 +202,10 @@ class MainPage extends React.Component {
         </div>
         <form className="randomize-wrapper">
           <div className="randomize-button-wrapper">
-            <button className="randomize-button">Randomize!</button>
+            <button className="btn">
+              <span class="noselect">Randomize</span>
+              <div className="circle"></div>
+            </button>
           </div>
           <div className="randomize-checkboxes-wrapper">
             <div className="randomize-title-wrapper">

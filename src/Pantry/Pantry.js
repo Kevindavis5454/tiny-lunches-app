@@ -137,7 +137,10 @@ export default class Pantry extends React.Component {
                 />
               </div>
               <div className="item-wrappers-bottom-middle border2">
-                <button>Print Shopping list</button>
+                <button id="print-btn" className="btn">
+                  <span class="noselect">Print Shopping List</span>
+                  <div className="circle"></div>
+                </button>
               </div>
               <div className="item-wrappers-bottom-left-right">
                 <input
@@ -157,13 +160,18 @@ export default class Pantry extends React.Component {
             </div>
           </div>
           <div className="shopping-list-wrapper">
-            <div className="shopping-list-display">
-              <div className="shopping-item"></div>
-              <div className="shopping-item"></div>
-              <div className="shopping-item"></div>
-              <div className="shopping-item"></div>
-              <div className="shopping-item"></div>
-              <div className="shopping-item"></div>
+            <div className="shopping-list-title">
+              <h2>Shopping List</h2>
+            </div>
+            <div className="shopping-list-display-wrapper">
+              <div className="shopping-list-display">
+                <div className="shopping-item"></div>
+                <div className="shopping-item"></div>
+                <div className="shopping-item"></div>
+                <div className="shopping-item"></div>
+                <div className="shopping-item"></div>
+                <div className="shopping-item"></div>
+              </div>
             </div>
           </div>
         </div>
