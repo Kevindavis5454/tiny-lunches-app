@@ -31,14 +31,19 @@ class MainPage extends React.Component {
       <>
         <div className="search-wrapper">
           <div className="icons-wrapper">
-            <div className="icons-top border1">
-              <input
-                className="icon"
-                type="image"
+            <div className="icons-top">
+              <div
+                className="btnIcon"
                 onClick={() => this.setState({ isCarbOpen: true })}
-                alt="carbs"
-                src={require("../Images/Bread50-50.png")}
-              />
+              >
+                <input
+                  className="icon noselect"
+                  type="image"
+                  alt="carbs"
+                  src={require("../Images/Bread50-50.png")}
+                />
+                <div className="circleIcon"></div>
+              </div>
               <ItemModal
                 data={this.props.data.masterCarb}
                 itemType="carb"
@@ -46,14 +51,19 @@ class MainPage extends React.Component {
                 onClose={() => this.setState({ isCarbOpen: false })}
               />
             </div>
-            <div className="icons-top border1">
-              <input
-                className="icon"
-                type="image"
+            <div className="icons-top">
+              <div
+                className="btnIcon"
                 onClick={() => this.setState({ isVeggieOpen: true })}
-                alt="veggies"
-                src={require("../Images/carrot50-50.png")}
-              />
+              >
+                <input
+                  className="icon noselect"
+                  type="image"
+                  alt="veggies"
+                  src={require("../Images/carrot50-50.png")}
+                />
+                <div className="circleIcon"></div>
+              </div>
               <ItemModal
                 data={this.props.data.masterVegetable}
                 itemType="veggie"
@@ -61,14 +71,19 @@ class MainPage extends React.Component {
                 onClose={() => this.setState({ isVeggieOpen: false })}
               />
             </div>
-            <div className="icons-top border1">
-              <input
-                className="icon"
-                type="image"
+            <div className="icons-top">
+              <div
+                className="btnIcon"
                 onClick={() => this.setState({ isFruitOpen: true })}
-                alt="fruits"
-                src={require("../Images/Grapes50-50.png")}
-              />
+              >
+                <input
+                  className="icon noselect"
+                  type="image"
+                  alt="fruits"
+                  src={require("../Images/Grapes50-50.png")}
+                />
+                <div className="circleIcon"></div>
+              </div>
               <ItemModal
                 data={this.props.data.masterFruit}
                 itemType="fruit"
@@ -76,14 +91,19 @@ class MainPage extends React.Component {
                 onClose={() => this.setState({ isFruitOpen: false })}
               />
             </div>
-            <div className="icons-top border1">
-              <input
-                className="icon"
-                type="image"
+            <div className="icons-top">
+              <div
+                className="btnIcon"
                 onClick={() => this.setState({ isProteinOpen: true })}
-                alt="protein"
-                src={require("../Images/Protein50-50.png")}
-              />
+              >
+                <input
+                  className="icon noselect"
+                  type="image"
+                  alt="protein"
+                  src={require("../Images/Protein50-50.png")}
+                />
+                <div className="circleIcon"></div>
+              </div>
               <ItemModal
                 data={this.props.data.masterProtein}
                 itemType="protein"
@@ -92,13 +112,18 @@ class MainPage extends React.Component {
               />
             </div>
             <div className="icons-top">
-              <input
-                className="icon"
-                type="image"
+              <div
+                className="btnIcon"
                 onClick={() => this.setState({ isDrinkOpen: true })}
-                alt="drinks"
-                src={require("../Images/Drink50-50.png")}
-              />
+              >
+                <input
+                  className="icon noselect"
+                  type="image"
+                  alt="drinks"
+                  src={require("../Images/Drink50-50.png")}
+                />
+                <div className="circleIcon"></div>
+              </div>
               <ItemModal
                 data={this.props.data.masterDrink}
                 itemType="drink"
@@ -109,13 +134,18 @@ class MainPage extends React.Component {
           </div>
           <div className="icons-wrapper-bottom">
             <div className="icons-bottom-left-right">
-              <input
-                className="icon"
-                type="image"
+              <div
+                className="btnIcon"
                 onClick={() => this.setState({ isDessertOpen: true })}
-                alt="dessert"
-                src={require("../Images/Cake50-50.png")}
-              />
+              >
+                <input
+                  className="icon noselect"
+                  type="image"
+                  alt="dessert"
+                  src={require("../Images/Cake50-50.png")}
+                />
+                <div className="circleIcon"></div>
+              </div>
               <ItemModal
                 data={this.props.data.masterDessert}
                 itemType="dessert"
@@ -123,7 +153,7 @@ class MainPage extends React.Component {
                 onClose={() => this.setState({ isDessertOpen: false })}
               />
             </div>
-            <div className="icons-bottom-middle border2">
+            <div className="icons-bottom-middle">
               <div className="list-check-top">
                 <div className="list-check-left-right">Master</div>
                 <div className="list-check-middle">Pantry</div>
@@ -142,13 +172,18 @@ class MainPage extends React.Component {
               </div>
             </div>
             <div className="icons-bottom-left-right">
-              <input
-                className="icon"
-                type="image"
+              <div
+                className="btnIcon"
                 onClick={() => this.setState({ isComboOpen: true })}
-                alt="dessert"
-                src={require("../Images/Combo50-50.png")}
-              />
+              >
+                <input
+                  className="icon noselect"
+                  type="image"
+                  alt="dessert"
+                  src={require("../Images/Combo50-50.png")}
+                />
+                <div className="circleIcon"></div>
+              </div>
               <ItemModal
                 data={this.props.data.masterCombo}
                 itemType="combo"
@@ -169,7 +204,7 @@ class MainPage extends React.Component {
               </div>
               <div className="search-button-wrapper">
                 <button id="search-btn" className="btn">
-                  <span class="noselect">Search</span>
+                  <span className="noselect">Search</span>
                   <div className="circle"></div>
                 </button>
               </div>
@@ -179,11 +214,11 @@ class MainPage extends React.Component {
             </div>
             <div className="lunch-save-button-wrapper">
               <button className="btn">
-                <span class="noselect">Save</span>
+                <span className="noselect">Save</span>
                 <div className="circle"></div>
               </button>
               <button className="btn" onClick={this.clearLunchList}>
-                <span class="noselect">Clear</span>
+                <span className="noselect">Clear</span>
                 <div className="circle"></div>
               </button>
             </div>
@@ -203,7 +238,7 @@ class MainPage extends React.Component {
         <form className="randomize-wrapper">
           <div className="randomize-button-wrapper">
             <button className="btn">
-              <span class="noselect">Randomize</span>
+              <span className="noselect">Randomize</span>
               <div className="circle"></div>
             </button>
           </div>

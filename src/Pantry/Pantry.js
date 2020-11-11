@@ -44,14 +44,19 @@ export default class Pantry extends React.Component {
         <div className="pantry-page-wrapper">
           <div className="item-categories-wrapper">
             <div className="item-category-top-row">
-              <div className="item-wrappers-top border1">
-                <input
-                  className="icon"
-                  type="image"
+              <div className="icons-top">
+                <div
+                  className="btnIcon"
                   onClick={() => this.setState({ isCarbOpen: true })}
-                  alt="carbs"
-                  src={require("../Images/Bread50-50.png")}
-                />
+                >
+                  <input
+                    className="icon noselect"
+                    type="image"
+                    alt="carbs"
+                    src={require("../Images/Bread50-50.png")}
+                  />
+                  <div className="circleIcon"></div>
+                </div>
                 <ItemModal
                   data={this.state.pantryCarb}
                   itemType="carb"
@@ -59,14 +64,19 @@ export default class Pantry extends React.Component {
                   onClose={() => this.setState({ isCarbOpen: false })}
                 />
               </div>
-              <div className="item-wrappers-top border1">
-                <input
-                  className="icon"
-                  type="image"
+              <div className="icons-top">
+                <div
+                  className="btnIcon"
                   onClick={() => this.setState({ isVeggieOpen: true })}
-                  alt="veggies"
-                  src={require("../Images/carrot50-50.png")}
-                />
+                >
+                  <input
+                    className="icon noselect"
+                    type="image"
+                    alt="veggies"
+                    src={require("../Images/carrot50-50.png")}
+                  />
+                  <div className="circleIcon"></div>
+                </div>
                 <ItemModal
                   data={this.state.pantryVegetable}
                   itemType="veggie"
@@ -74,14 +84,19 @@ export default class Pantry extends React.Component {
                   onClose={() => this.setState({ isVeggieOpen: false })}
                 />
               </div>
-              <div className="item-wrappers-top border1">
-                <input
-                  className="icon"
-                  type="image"
+              <div className="icons-top">
+                <div
+                  className="btnIcon"
                   onClick={() => this.setState({ isFruitOpen: true })}
-                  alt="fruits"
-                  src={require("../Images/Grapes50-50.png")}
-                />
+                >
+                  <input
+                    className="icon noselect"
+                    type="image"
+                    alt="fruits"
+                    src={require("../Images/Grapes50-50.png")}
+                  />
+                  <div className="circleIcon"></div>
+                </div>
                 <ItemModal
                   data={this.state.pantryFruit}
                   itemType="fruit"
@@ -89,14 +104,19 @@ export default class Pantry extends React.Component {
                   onClose={() => this.setState({ isFruitOpen: false })}
                 />
               </div>
-              <div className="item-wrappers-top border1">
-                <input
-                  className="icon"
-                  type="image"
+              <div className="icons-top">
+                <div
+                  className="btnIcon"
                   onClick={() => this.setState({ isProteinOpen: true })}
-                  alt="protein"
-                  src={require("../Images/Protein50-50.png")}
-                />
+                >
+                  <input
+                    className="icon noselect"
+                    type="image"
+                    alt="protein"
+                    src={require("../Images/Protein50-50.png")}
+                  />
+                  <div className="circleIcon"></div>
+                </div>
                 <ItemModal
                   data={this.state.pantryProtein}
                   itemType="protein"
@@ -104,14 +124,19 @@ export default class Pantry extends React.Component {
                   onClose={() => this.setState({ isProteinOpen: false })}
                 />
               </div>
-              <div className="item-wrappers-top">
-                <input
-                  className="icon"
-                  type="image"
+              <div className="icons-top">
+                <div
+                  className="btnIcon"
                   onClick={() => this.setState({ isDrinkOpen: true })}
-                  alt="drinks"
-                  src={require("../Images/Drink50-50.png")}
-                />
+                >
+                  <input
+                    className="icon noselect"
+                    type="image"
+                    alt="drinks"
+                    src={require("../Images/Drink50-50.png")}
+                  />
+                  <div className="circleIcon"></div>
+                </div>
                 <ItemModal
                   data={this.state.pantryDrink}
                   itemType="drink"
@@ -121,14 +146,19 @@ export default class Pantry extends React.Component {
               </div>
             </div>
             <div className="item-category-bottom-row">
-              <div className="item-wrappers-bottom-left-right">
-                <input
-                  className="icon"
-                  type="image"
+              <div className="icons-bottom-left-right">
+                <div
+                  className="btnIcon"
                   onClick={() => this.setState({ isDessertOpen: true })}
-                  alt="dessert"
-                  src={require("../Images/Cake50-50.png")}
-                />
+                >
+                  <input
+                    className="icon noselect"
+                    type="image"
+                    alt="dessert"
+                    src={require("../Images/Cake50-50.png")}
+                  />
+                  <div className="circleIcon"></div>
+                </div>
                 <ItemModal
                   data={this.state.pantryDessert}
                   itemType="dessert"
@@ -142,14 +172,19 @@ export default class Pantry extends React.Component {
                   <div className="circle"></div>
                 </button>
               </div>
-              <div className="item-wrappers-bottom-left-right">
-                <input
-                  className="icon"
-                  type="image"
+              <div className="icons-bottom-left-right">
+                <div
+                  className="btnIcon"
                   onClick={() => this.setState({ isComboOpen: true })}
-                  alt="dessert"
-                  src={require("../Images/Combo50-50.png")}
-                />
+                >
+                  <input
+                    className="icon noselect"
+                    type="image"
+                    alt="dessert"
+                    src={require("../Images/Combo50-50.png")}
+                  />
+                  <div className="circleIcon"></div>
+                </div>
                 <ItemModal
                   data={this.state.pantryCombo}
                   itemType="combo"

@@ -17,22 +17,24 @@ export default class Header extends React.Component {
     return (
       <button
         onClick={() => this.setState({ isOpen: true })}
-        className="signUp-signIn"
+        className="btnIconHeader"
       >
-        <span role="img" aria-label="login">
+        <span role="img" aria-label="login" className="noselect">
           🔐
         </span>
+        <div className="circleIconHeader"></div>
       </button>
     );
   }
 
   renderLogoutLink() {
     return (
-      <button className="signUp-signIn" onClick={this.handleLogoutClick}>
+      <button className="btnIconHeader" onClick={this.handleLogoutClick}>
         <Link to="/">
           <span role="img" aria-label="login">
             🚫
           </span>
+          <div className="circleIconHeader"></div>
         </Link>
       </button>
     );
