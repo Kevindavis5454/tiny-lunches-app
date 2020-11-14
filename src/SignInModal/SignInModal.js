@@ -14,14 +14,14 @@ export default class SignInModal extends React.Component {
   handleSubmitJwtAuth = (ev) => {
     ev.preventDefault();
     this.setState({ error: null });
-    const { user_name, password } = ev.target;
+    const { username, password } = ev.target;
 
     AuthApiService.postLogin({
-      user_name: user_name.value,
+      username: username.value,
       password: password.value,
     })
       .then((res) => {
-        user_name.value = "";
+        username.value = "";
         password.value = "";
         TokenService.saveAuthToken(res.authToken);
         /* Set Local Storage with User Id Here */
@@ -34,17 +34,17 @@ export default class SignInModal extends React.Component {
 
   handleSubmit = (ev) => {
     ev.preventDefault();
-    const { display_name, user_name, password } = ev.target;
+    const { display_name, username, password } = ev.target;
 
     this.setState({ error: null });
     AuthApiService.postUser({
-      user_name: user_name.value,
+      username: username.value,
       password: password.value,
       display_name: display_name.value,
     })
       .then((user) => {
         display_name.value = "";
-        user_name.value = "";
+        username.value = "";
         password.value = "";
         this.props.onRegistrationSuccess();
       })
@@ -62,11 +62,10 @@ export default class SignInModal extends React.Component {
         <div className="item-modal-overlay" />
         <div className="item-modal-wrapper">
           <div className="signin-modal-wrapper">
-            <div role="alert">{error && <p className="red">{error}</p>}</div>
             <form className="LoginForm" onSubmit={this.handleSubmitJwtAuth}>
               <h3>Sign in!</h3>
-              <label htmlFor="LoginForm__user_name">Username</label>
-              <input name="user_name" id="LoginForm__user_name"></input>
+              <label htmlFor="LoginForm__username">Username</label>
+              <input name="username" id="LoginForm__username"></input>
               <label htmlFor="LoginForm__password">Password</label>
               <input
                 name="password"
@@ -80,7 +79,6 @@ export default class SignInModal extends React.Component {
             </form>
           </div>
           <div className="signup-modal-wrapper">
-            <div role="alert">{error && <p className="red">{error}</p>}</div>
             <form className="RegistrationForm" onSubmit={this.handleSubmit}>
               <h3>Sign up!</h3>
               <label htmlFor="RegistrationForm__display_name">
@@ -92,12 +90,12 @@ export default class SignInModal extends React.Component {
                 required
                 id="RegistrationForm__display_name"
               ></input>
-              <label htmlFor="RegistrationForm__user_name">Username</label>
+              <label htmlFor="RegistrationForm__username">Username</label>
               <input
-                name="user_name"
+                name="username"
                 type="text"
                 required
-                id="RegistrationForm__user_name"
+                id="RegistrationForm__username"
               ></input>
               <label htmlFor="RegistrationForm__password">Password</label>
               <input
