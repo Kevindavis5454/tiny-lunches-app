@@ -60,7 +60,6 @@ class SignInModal extends React.Component {
 
   render() {
     if (!this.props.open) return null;
-    const { error } = this.state;
 
     return ReactDom.createPortal(
       <>

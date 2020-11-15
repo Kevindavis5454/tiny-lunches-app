@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDom from "react-dom";
+import AddItem from "../AddItem/AddItem";
 import ModalItem from "./ModalItem";
 
 export default function ItemModal({ open, onClose, data }) {
@@ -15,7 +16,10 @@ export default function ItemModal({ open, onClose, data }) {
     <>
       <div className="item-modal-overlay" />
       <div className="item-modal-wrapper">
-        <div className="modal-list-wrapper">{renderList}</div>
+        <div className="modal-list-wrapper">
+          <AddItem />
+          {renderList}
+        </div>
         <div className="modal-close-wrapper">
           <button className="btn" onClick={onClose}>
             <span className="noselect">Close</span>

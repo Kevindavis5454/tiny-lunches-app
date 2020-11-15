@@ -10,6 +10,7 @@ import config from "./config";
 import ApiContext from "./ApiContext";
 import ItemSort from "./services/item-sort-service";
 import PrivateRoute from "./PrivateRoute";
+import AddItem from "./AddItem/AddItem";
 
 class App extends React.Component {
   state = {
@@ -93,16 +94,13 @@ class App extends React.Component {
                   <MainPage data={this.state} {...this.props} {...routeProps} />
                 )}
               />
-              <PrivateRoute
-                path={"/myLists"}
-                component={MyLists}
-                data={this.state}
-              />
+              <PrivateRoute path={"/myLists"} component={MyLists} />
               <PrivateRoute
                 path={"/pantry"}
                 component={Pantry}
                 data={this.state}
               />
+              <PrivateRoute path={"/additem"} component={AddItem} />
             </div>
           </div>
         </Error>

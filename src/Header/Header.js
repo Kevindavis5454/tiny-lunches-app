@@ -62,6 +62,14 @@ export default class Header extends React.Component {
             Pantry
           </Link>
         </li>
+        <li>
+          <Link
+            to="/additem"
+            onClick={() => this.setState({ showMenu: false })}
+          >
+            Add Custom Item
+          </Link>
+        </li>
       </>
     );
   }
