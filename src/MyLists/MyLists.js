@@ -1,7 +1,65 @@
 import React from "react";
+import config from "../config";
 
 class MyLists extends React.Component {
+  state = {
+    lists: [],
+    selectedList: [],
+  };
+
+  componentDidMount() {
+    const user = localStorage.getItem("user_id");
+    const token = localStorage.getItem(config.TOKEN_KEY);
+    console.log(user, "local user");
+    const getUserLists = () => {
+      fetch(`${config.API_ENDPOINT}/savedlunches/${user}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((lists) => {
+          const masterListofLists = [];
+          masterListofLists.push(lists);
+          this.setState({
+            lists: masterListofLists,
+          });
+          console.log(this.state.lists, "state lists");
+        });
+    };
+    getUserLists();
+  }
+
+  handleSetSelectedList = () => {
+    this.setState({ selectedList: [] });
+  };
+
   render() {
+    const savedListSelect = document.getElementById("list-select");
+
+    const renderLists = this.state.lists.map((list, index) => {
+      return (
+        <option value={list.title} key={index}>
+          {list.title}
+        </option>
+      );
+    });
+
+    const renderListItems = this.state.lists.map((item) => {
+      const selectedList = savedListSelect.value;
+      console.log(selectedList, "selected list");
+      if (item.title == selectedList) {
+        return item.items.map((food, index) => {
+          return (
+            <div key={index} className="modal-item">
+              <div className="saved-list-item">{food}</div>
+            </div>
+          );
+        });
+      }
+    });
+
     return (
       <>
         <div className="my-lists-wrapper">
@@ -11,12 +69,13 @@ class MyLists extends React.Component {
                 <h3>Choose your lunch!</h3>
               </div>
               <div className="choose-select-wrapper">
-                <select className="lunch-select">
-                  <option>Lunch 1</option>
-                  <option>Lunch 2</option>
-                  <option>Lunch 3</option>
-                  <option>Lunch 4</option>
-                  <option>Lunch 5</option>
+                <select
+                  onChange={this.handleSetSelectedList}
+                  id="list-select"
+                  className="lunch-select"
+                >
+                  {renderLists}
+                  <option>Select a Lunch</option>
                 </select>
               </div>
             </div>
@@ -48,14 +107,7 @@ class MyLists extends React.Component {
             </div>
           </div>
           <div className="my-lists-display-wrapper">
-            <div className="list-display-box">
-              <div className="my-list-item"></div>
-              <div className="my-list-item"></div>
-              <div className="my-list-item"></div>
-              <div className="my-list-item"></div>
-              <div className="my-list-item"></div>
-              <div className="my-list-item"></div>
-            </div>
+            <div className="modal-list-wrapper">{renderListItems}</div>
           </div>
         </div>
       </>

@@ -210,7 +210,7 @@ class MainPage extends React.Component {
               </div>
             </form>
             <div className="lunch-items-wrapper">
-              <div className="lunch-items-inner-wrapper">{renderList}</div>
+              <div className="modal-list-wrapper">{renderList}</div>
             </div>
             <div className="lunch-save-button-wrapper">
               <button className="btn">

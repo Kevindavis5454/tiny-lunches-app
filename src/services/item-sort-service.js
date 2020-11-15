@@ -1,10 +1,18 @@
 /* ADD LOGIC FOR QUANTITIES DISPLAY */
 
+import config from "../config";
+
 const ItemSort = {
   getMasterList(url) {
-    return fetch(url)
+    return fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem(config.TOKEN_KEY)}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data, "pantryData");
         const masterVegetableHolding = [];
         const masterFruitHolding = [];
         const masterCarbHolding = [];

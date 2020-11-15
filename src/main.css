@@ -337,6 +337,10 @@ html,
 .lunch-menu-inner-wrapper {
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .search-form-wrapper {
@@ -368,7 +372,7 @@ html,
 
 .lunch-items-wrapper {
   height: 80%;
-  width: 100%;
+  width: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -494,6 +498,7 @@ html,
 .my-lists-wrapper {
   height: 100%;
   width: 100%;
+  background-color: var(--DarkAccent);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -554,7 +559,7 @@ html,
 
 .my-lists-display-wrapper {
   height: 85%;
-  width: 100%;
+  width: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -694,6 +699,8 @@ html,
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   overflow-y: scroll;
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none; /* Firefox */
@@ -732,6 +739,18 @@ html,
   width: 70%;
   display: flex;
   flex-direction: column;
+}
+
+.saved-list-item {
+  height: 90%;
+  width: 90%;
+  background-color: var(--DarkAccent);
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3.5vw;
 }
 
 .modal-item-left-top {
@@ -796,6 +815,10 @@ html,
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.error {
+  text-align: center;
 }
 
 .RegistrationForm {
@@ -1125,154 +1148,12 @@ html,
     height: 75%;
   }
 
-  .menu-wrapper {
+  /* .menu-wrapper {
     display: none;
-  }
-
-  .large-screen-nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-
-  .large-screen-nav ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .nav a {
-    display: block;
-    background: #111;
-    color: #fff;
-    text-decoration: none;
-    padding: 0.8em 1.8em;
-    text-transform: uppercase;
-    font-size: 70%;
-    letter-spacing: 2px;
-    /*text-shadow: 0 -1px 0 #000;*/
-    position: relative;
-    width: 10vw;
-    text-align: center;
-  }
-
-  .nav {
-    vertical-align: top;
-    display: inline-block;
-    box-shadow: 1px -1px -1px 1px #000, -1px 1px -1px 1px #fff, 0 0 6px 3px #fff;
-    border-radius: 6px;
-  }
-
-  .nav li {
-    position: relative;
-  }
-
-  .nav > li {
-    float: left;
-    border-bottom: 4px #aaa solid;
-    margin-right: 1px;
-    margin-bottom: 1px;
-  }
-
-  .nav > li > a {
-    margin-bottom: 1px;
-    box-shadow: inset 0 2em 0.33em -0.5em #555;
-  }
-
-  .nav > li:hover,
-  .nav > li:hover > a {
-    border-bottom-color: #bc4123;
-  }
-
-  .nav li:hover > a {
-    color: #bc4123;
-  }
-
-  .nav > li:first-child {
-    border-radius: 4px 0 0 4px;
-  }
-
-  .nav > li:first-child > a {
-    border-radius: 4px 0 0 0;
-  }
-
-  .nav > li:last-child {
-    border-radius: 0 0 4px 0;
-    margin-right: 0;
-  }
-
-  .nav > li:last-child > a {
-    border-radius: 0 4px 0 0;
-  }
-
-  .nav li li a {
-    margin-top: 0px;
-  }
-
-  .nav li a:first-child:nth-last-child(2):before {
-    content: "";
-    position: absolute;
-    height: 0;
-    width: 0;
-    border: 5px solid transparent;
-    top: 70%;
-    right: 2px;
-  }
-
-  /* submenu positioning*/
-  .nav ul {
-    position: absolute;
-    white-space: nowrap;
-    border-bottom: 5px solid #bc4123;
-    z-index: 1;
-    left: -99999em;
-  }
-
-  .nav > li:hover > ul {
-    left: auto;
-    padding-top: 4px;
-    min-width: 100%;
-  }
-
-  .nav > li li ul {
-    border-left: 1px solid #fff;
-  }
-
-  .nav > li li:hover > ul {
-    /* margin-left: 1px */
-    left: 100%;
-    top: -1px;
-  }
-
-  /* arrow hover styling */
-  .nav > li > a:first-child:nth-last-child(2):before {
-    border-top-color: #aaa;
-  }
-
-  .nav > li:hover > a:first-child:nth-last-child(2):before {
-    border: 5px solid transparent;
-    border-bottom-color: #bc4123;
-    margin-top: -5px;
-  }
-
-  .nav li li > a:first-child:nth-last-child(2):before {
-    border-left-color: #aaa;
-    margin-top: -5px;
-  }
-
-  .nav li li:hover > a:first-child:nth-last-child(2):before {
-    border: 5px solid transparent;
-    border-right-color: #bc4123;
-    right: 10px;
-  }
+  } */
 
   .header-title {
     padding: 1em;
-  }
-
-  .nav {
-    padding: 1em 0em 2em 0em;
   }
 
   /* button styles */

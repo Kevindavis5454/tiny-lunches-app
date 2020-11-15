@@ -13,6 +13,9 @@ const TokenService = {
   hasAuthToken() {
     return !!TokenService.getAuthToken();
   },
+  saveUserId(userid) {
+    window.localStorage.setItem("user_id", userid);
+  },
 };
 
 export default TokenService;

@@ -2,10 +2,13 @@ import React from "react";
 import TokenService from "../services/token-service";
 import AuthApiService from "../services/auth-api-service";
 import ReactDom from "react-dom";
+import { withRouter } from "react-router";
 
-export default class SignInModal extends React.Component {
+class SignInModal extends React.Component {
   static defaultProps = {
-    onLoginSuccess: () => {},
+    onLoginSuccess: () => {
+      this.props.history.push("/pantry");
+    },
     onRegistrationSuccess: () => {},
   };
 
@@ -25,7 +28,9 @@ export default class SignInModal extends React.Component {
         password.value = "";
         TokenService.saveAuthToken(res.authToken);
         /* Set Local Storage with User Id Here */
-        this.props.onLoginSuccess();
+        TokenService.saveUserId(res.user_id);
+        this.props.onClose();
+        this.props.history.push("/pantry");
       })
       .catch((res) => {
         this.setState({ error: res.error });
@@ -63,14 +68,20 @@ export default class SignInModal extends React.Component {
         <div className="item-modal-wrapper">
           <div className="signin-modal-wrapper">
             <form className="LoginForm" onSubmit={this.handleSubmitJwtAuth}>
+              {this.state.error && <p className="error">{this.state.error}</p>}
               <h3>Sign in!</h3>
               <label htmlFor="LoginForm__username">Username</label>
-              <input name="username" id="LoginForm__username"></input>
+              <input
+                name="username"
+                id="LoginForm__username"
+                defaultValue="admin"
+              ></input>
               <label htmlFor="LoginForm__password">Password</label>
               <input
                 name="password"
                 type="password"
                 id="LoginForm__password"
+                defaultValue="test123"
               ></input>
               <button type="submit" id="sign-in-btn" className="btn">
                 <span className="noselect">Sign In</span>
@@ -122,3 +133,5 @@ export default class SignInModal extends React.Component {
     );
   }
 }
+
+export default withRouter(SignInModal);

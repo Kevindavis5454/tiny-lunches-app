@@ -11,6 +11,7 @@ export default class Header extends React.Component {
 
   handleLogoutClick = () => {
     localStorage.clear();
+    this.props.history.push("/");
   };
 
   renderLoginLink() {
@@ -37,6 +38,41 @@ export default class Header extends React.Component {
           <div className="circleIconHeader"></div>
         </Link>
       </button>
+    );
+  }
+
+  renderAuthNav() {
+    return (
+      <>
+        <li>
+          <Link to="/" onClick={() => this.setState({ showMenu: false })}>
+            Home
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/myLists"
+            onClick={() => this.setState({ showMenu: false })}
+          >
+            Saved Lunches
+          </Link>
+        </li>
+        <li>
+          <Link to="/pantry" onClick={() => this.setState({ showMenu: false })}>
+            Pantry
+          </Link>
+        </li>
+      </>
+    );
+  }
+
+  renderNoAuthNav() {
+    return (
+      <li>
+        <Link to="/" onClick={() => this.setState({ showMenu: false })}>
+          Home
+        </Link>
+      </li>
     );
   }
 
@@ -69,27 +105,9 @@ export default class Header extends React.Component {
           </div>
           <div className="menu">
             <ul>
-              <li>
-                <Link to="/" onClick={() => this.setState({ showMenu: false })}>
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/myLists"
-                  onClick={() => this.setState({ showMenu: false })}
-                >
-                  Saved Lunches
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/pantry"
-                  onClick={() => this.setState({ showMenu: false })}
-                >
-                  Pantry
-                </Link>
-              </li>
+              {TokenService.hasAuthToken()
+                ? this.renderAuthNav()
+                : this.renderNoAuthNav()}
             </ul>
           </div>
         </div>

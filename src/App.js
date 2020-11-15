@@ -9,6 +9,7 @@ import Pantry from "./Pantry/Pantry";
 import config from "./config";
 import ApiContext from "./ApiContext";
 import ItemSort from "./services/item-sort-service";
+import PrivateRoute from "./PrivateRoute";
 
 class App extends React.Component {
   state = {
@@ -77,7 +78,12 @@ class App extends React.Component {
         <Error>
           <div className="main-div">
             <div className="header-div">
-              <Header />
+              <Route
+                path="/"
+                render={(routeProps) => (
+                  <Header {...this.props} {...routeProps} />
+                )}
+              />
             </div>
             <div className="content-div">
               <Route
@@ -87,17 +93,15 @@ class App extends React.Component {
                   <MainPage data={this.state} {...this.props} {...routeProps} />
                 )}
               />
-              <Route
-                path="/myLists"
-                render={(routeProps) => (
-                  <MyLists {...this.props} {...routeProps} />
-                )}
+              <PrivateRoute
+                path={"/myLists"}
+                component={MyLists}
+                data={this.state}
               />
-              <Route
-                path="/pantry"
-                render={(routeProps) => (
-                  <Pantry data={this.state} {...this.props} {...routeProps} />
-                )}
+              <PrivateRoute
+                path={"/pantry"}
+                component={Pantry}
+                data={this.state}
               />
             </div>
           </div>

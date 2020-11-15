@@ -23,7 +23,8 @@ export default class Pantry extends React.Component {
   };
 
   componentDidMount() {
-    ItemSort.getMasterList(`${config.API_ENDPOINT}/items?user_id=1`).then(
+    const user = localStorage.getItem("user_id");
+    ItemSort.getMasterList(`${config.API_ENDPOINT}/pantry/users/${user}`).then(
       (sortedData) => {
         this.setState({
           pantryVegetable: sortedData.Vegetable,
@@ -168,7 +169,7 @@ export default class Pantry extends React.Component {
               </div>
               <div className="item-wrappers-bottom-middle border2">
                 <button id="print-btn" className="btn">
-                  <span class="noselect">Print Shopping List</span>
+                  <span className="noselect">Print Shopping List</span>
                   <div className="circle"></div>
                 </button>
               </div>
