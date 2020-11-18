@@ -223,17 +223,6 @@ class MainPage extends React.Component {
               </button>
             </div>
           </div>
-          <div className="item-count-wrapper">
-            <div className="item-count-inner-wrapper">
-              <div className="item-count"></div>
-              <div className="item-count"></div>
-              <div className="item-count"></div>
-              <div className="item-count"></div>
-              <div className="item-count"></div>
-              <div className="item-count"></div>
-              <div className="item-count"></div>
-            </div>
-          </div>
         </div>
         <form className="randomize-wrapper">
           <div className="randomize-button-wrapper">

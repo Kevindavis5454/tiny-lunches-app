@@ -20,9 +20,12 @@ export default class Header extends React.Component {
         onClick={() => this.setState({ isOpen: true })}
         className="btnIconHeader"
       >
-        <span role="img" aria-label="login" className="noselect">
-          🔐
-        </span>
+        <div className="logout-link">
+          <img
+            className="logout-png"
+            src={require("../Images/login-32.png")}
+          ></img>
+        </div>
         <div className="circleIconHeader"></div>
       </button>
     );
@@ -31,10 +34,11 @@ export default class Header extends React.Component {
   renderLogoutLink() {
     return (
       <button className="btnIconHeader" onClick={this.handleLogoutClick}>
-        <Link to="/">
-          <span role="img" aria-label="login">
-            🚫
-          </span>
+        <Link className="logout-link" to="/">
+          <img
+            className="logout-png"
+            src={require("../Images/logout-32.png")}
+          ></img>
           <div className="circleIconHeader"></div>
         </Link>
       </button>
@@ -60,14 +64,6 @@ export default class Header extends React.Component {
         <li>
           <Link to="/pantry" onClick={() => this.setState({ showMenu: false })}>
             Pantry
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/additem"
-            onClick={() => this.setState({ showMenu: false })}
-          >
-            Add Custom Item
           </Link>
         </li>
       </>
@@ -119,19 +115,6 @@ export default class Header extends React.Component {
             </ul>
           </div>
         </div>
-        <nav className="large-screen-nav">
-          <ul className="nav">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/myLists">Saved Lunches</Link>
-            </li>
-            <li>
-              <Link to="/pantry">Pantry</Link>
-            </li>
-          </ul>
-        </nav>
       </>
     );
   }

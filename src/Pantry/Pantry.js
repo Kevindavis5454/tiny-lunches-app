@@ -169,7 +169,7 @@ export default class Pantry extends React.Component {
               </div>
               <div className="item-wrappers-bottom-middle border2">
                 <button id="print-btn" className="btn">
-                  <span className="noselect">Print Shopping List</span>
+                  <span className="noselect">Print</span>
                   <div className="circle"></div>
                 </button>
               </div>
