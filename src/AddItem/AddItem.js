@@ -110,36 +110,42 @@ class AddItem extends React.Component {
                 <div className="image-icon-1">
                   <img
                     className="icon-image-small"
+                    alt="carb icon"
                     src={require("../Images/Bread50-50.png")}
                   />
                 </div>
                 <div className="image-icon-2">
                   <img
                     className="icon-image-small"
+                    alt="vegetable icon"
                     src={require("../Images/carrot50-50.png")}
                   />
                 </div>
                 <div className="image-icon-2">
                   <img
                     className="icon-image-small"
+                    alt="fruit icon"
                     src={require("../Images/Grapes50-50.png")}
                   />
                 </div>
                 <div className="image-icon-2">
                   <img
                     className="icon-image-small"
+                    alt="protein icon"
                     src={require("../Images/Protein50-50.png")}
                   />
                 </div>
                 <div className="image-icon-2">
                   <img
                     className="icon-image-small"
+                    alt="drink icon"
                     src={require("../Images/Drink50-50.png")}
                   />
                 </div>
                 <div className="image-icon-1">
                   <img
                     className="icon-image-small"
+                    alt="dessert icon"
                     src={require("../Images/Cake50-50.png")}
                   />
                 </div>
@@ -169,7 +175,7 @@ class AddItem extends React.Component {
           <div className="modal-item-right">
             <div className="add-item-button-top-bottom">
               <button onClick={this.addCustomItem} className="btn itembtn">
-                <span className="noselect">Add</span>
+                <span className="noselect">Lunch</span>
                 <div className="circle"></div>
               </button>
             </div>

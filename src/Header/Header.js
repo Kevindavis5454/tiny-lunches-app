@@ -23,6 +23,7 @@ export default class Header extends React.Component {
         <div className="logout-link">
           <img
             className="logout-png"
+            alt="login icon"
             src={require("../Images/login-32.png")}
           ></img>
         </div>
@@ -37,6 +38,7 @@ export default class Header extends React.Component {
         <Link className="logout-link" to="/">
           <img
             className="logout-png"
+            alt="logout icon"
             src={require("../Images/logout-32.png")}
           ></img>
           <div className="circleIconHeader"></div>

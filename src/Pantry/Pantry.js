@@ -1,6 +1,6 @@
 import React from "react";
-import ItemModal from "../ItemModal/ItemModal";
-import ItemSort from "../services/item-sort-service";
+import PantryItemModal from "../PantryModal/PantryItemModal";
+import PantryItemSort from "../services/pantry-sort-service";
 import config from "../config";
 
 export default class Pantry extends React.Component {
@@ -24,19 +24,19 @@ export default class Pantry extends React.Component {
 
   componentDidMount() {
     const user = localStorage.getItem("user_id");
-    ItemSort.getMasterList(`${config.API_ENDPOINT}/pantry/users/${user}`).then(
-      (sortedData) => {
-        this.setState({
-          pantryVegetable: sortedData.Vegetable,
-          pantryFruit: sortedData.Fruit,
-          pantryCarb: sortedData.Carb,
-          pantryProtein: sortedData.Protein,
-          pantryDrink: sortedData.Drink,
-          pantryDessert: sortedData.Dessert,
-          pantryCombo: sortedData.Combo,
-        });
-      }
-    );
+    PantryItemSort.getPantryList(
+      `${config.API_ENDPOINT}/pantry/users/${user}`
+    ).then((sortedData) => {
+      this.setState({
+        pantryVegetable: sortedData.Vegetable,
+        pantryFruit: sortedData.Fruit,
+        pantryCarb: sortedData.Carb,
+        pantryProtein: sortedData.Protein,
+        pantryDrink: sortedData.Drink,
+        pantryDessert: sortedData.Dessert,
+        pantryCombo: sortedData.Combo,
+      });
+    });
   }
 
   render() {
@@ -58,7 +58,7 @@ export default class Pantry extends React.Component {
                   />
                   <div className="circleIcon"></div>
                 </div>
-                <ItemModal
+                <PantryItemModal
                   data={this.state.pantryCarb}
                   itemType="carb"
                   open={this.state.isCarbOpen}
@@ -78,7 +78,7 @@ export default class Pantry extends React.Component {
                   />
                   <div className="circleIcon"></div>
                 </div>
-                <ItemModal
+                <PantryItemModal
                   data={this.state.pantryVegetable}
                   itemType="veggie"
                   open={this.state.isVeggieOpen}
@@ -98,7 +98,7 @@ export default class Pantry extends React.Component {
                   />
                   <div className="circleIcon"></div>
                 </div>
-                <ItemModal
+                <PantryItemModal
                   data={this.state.pantryFruit}
                   itemType="fruit"
                   open={this.state.isFruitOpen}
@@ -118,7 +118,7 @@ export default class Pantry extends React.Component {
                   />
                   <div className="circleIcon"></div>
                 </div>
-                <ItemModal
+                <PantryItemModal
                   data={this.state.pantryProtein}
                   itemType="protein"
                   open={this.state.isProteinOpen}
@@ -138,7 +138,7 @@ export default class Pantry extends React.Component {
                   />
                   <div className="circleIcon"></div>
                 </div>
-                <ItemModal
+                <PantryItemModal
                   data={this.state.pantryDrink}
                   itemType="drink"
                   open={this.state.isDrinkOpen}
@@ -160,7 +160,7 @@ export default class Pantry extends React.Component {
                   />
                   <div className="circleIcon"></div>
                 </div>
-                <ItemModal
+                <PantryItemModal
                   data={this.state.pantryDessert}
                   itemType="dessert"
                   open={this.state.isDessertOpen}
@@ -186,7 +186,7 @@ export default class Pantry extends React.Component {
                   />
                   <div className="circleIcon"></div>
                 </div>
-                <ItemModal
+                <PantryItemModal
                   data={this.state.pantryCombo}
                   itemType="combo"
                   open={this.state.isComboOpen}
