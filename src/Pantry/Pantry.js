@@ -20,6 +20,24 @@ export default class Pantry extends React.Component {
     pantryDrink: [],
     pantryDessert: [],
     pantryCombo: [],
+    name: [],
+  };
+
+  reRender = () => {
+    const user = localStorage.getItem("user_id");
+    PantryItemSort.getPantryList(
+      `${config.API_ENDPOINT}/pantry/users/${user}`
+    ).then((sortedData) => {
+      this.setState({
+        pantryVegetable: sortedData.Vegetable,
+        pantryFruit: sortedData.Fruit,
+        pantryCarb: sortedData.Carb,
+        pantryProtein: sortedData.Protein,
+        pantryDrink: sortedData.Drink,
+        pantryDessert: sortedData.Dessert,
+        pantryCombo: sortedData.Combo,
+      });
+    });
   };
 
   componentDidMount() {
@@ -63,6 +81,7 @@ export default class Pantry extends React.Component {
                   itemType="carb"
                   open={this.state.isCarbOpen}
                   onClose={() => this.setState({ isCarbOpen: false })}
+                  render={this.reRender}
                 />
               </div>
               <div className="icons-top">

@@ -12,7 +12,7 @@ const addNewCustomItem = {
     const newItem = {
       user_id: parseInt(localStorage.getItem("user_id")),
       item_name: itemSelection.Name,
-      quantity: 0,
+      quantity: itemSelection.Quantity,
     };
     const mergedObject = {
       ...newItem,

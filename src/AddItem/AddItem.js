@@ -5,6 +5,11 @@ import config from "../config";
 
 class AddItem extends React.Component {
   static contextType = ApiContext;
+
+  reRender = () => {
+    this.context.reRenderDom();
+  };
+
   addCustomItem = () => {
     const selectionCategories = [];
     const carb = document.getElementById("carbCheck").checked;
@@ -13,6 +18,8 @@ class AddItem extends React.Component {
     const protein = document.getElementById("proteinCheck").checked;
     const drink = document.getElementById("drinkCheck").checked;
     const dessert = document.getElementById("dessertCheck").checked;
+    const quantityNumber = document.getElementById("add-item-quantity-input")
+      .value;
     if (carb) {
       selectionCategories.push("carb");
     }
@@ -34,6 +41,7 @@ class AddItem extends React.Component {
     if (selectionCategories.length >= 2) {
       selectionCategories.push("combo");
       const itemSelection = {
+        Quantity: quantityNumber,
         Name: document.getElementById("add-input-name").value,
         Categories: selectionCategories.toString().toLowerCase(),
       };
@@ -41,6 +49,7 @@ class AddItem extends React.Component {
       this.context.handleAddToLunch(itemSelection);
     } else {
       const itemSelection = {
+        Quantity: quantityNumber,
         Name: document.getElementById("add-input-name").value,
         Categories: selectionCategories.toString().toLowerCase(),
       };
@@ -57,6 +66,8 @@ class AddItem extends React.Component {
     const protein = document.getElementById("proteinCheck").checked;
     const drink = document.getElementById("drinkCheck").checked;
     const dessert = document.getElementById("dessertCheck").checked;
+    const quantityNumber = document.getElementById("add-item-quantity-input")
+      .value;
     if (carb) {
       selectionCategories.push("carb");
     }
@@ -78,18 +89,24 @@ class AddItem extends React.Component {
     if (selectionCategories.length >= 2) {
       selectionCategories.push("combo");
       const itemSelection = {
+        Quantity: quantityNumber,
         Name: document.getElementById("add-input-name").value.toLowerCase(),
         Categories: selectionCategories,
       };
       console.log(itemSelection, "if item selection");
       addNewCustomItem.toPantry(`${config.API_ENDPOINT}/pantry`, itemSelection);
+
+      this.props.render();
     } else {
       const itemSelection = {
+        Quantity: quantityNumber,
         Name: document.getElementById("add-input-name").value.toLowerCase(),
         Categories: selectionCategories,
       };
       console.log(itemSelection, "else item selection");
       addNewCustomItem.toPantry(`${config.API_ENDPOINT}/pantry`, itemSelection);
+
+      this.props.render();
     }
   };
 
@@ -181,6 +198,7 @@ class AddItem extends React.Component {
             </div>
             <div className="add-item-button-middle">
               <input
+                id="add-item-quantity-input"
                 className="quantity-input"
                 defaultValue="0"
                 type="number"

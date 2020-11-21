@@ -23,6 +23,7 @@ class App extends React.Component {
     masterDessert: [],
     masterCombo: [],
     userSelections: [],
+    name: [],
   };
 
   componentDidMount() {
@@ -64,6 +65,10 @@ class App extends React.Component {
     });
   };
 
+  reRender = () => {
+    this.forceUpdate();
+  };
+
   render() {
     console.log(this.state.userSelections, "user selections");
 
@@ -72,6 +77,7 @@ class App extends React.Component {
       handleAddToLunch: this.addToLunch,
       handleRemoveFromLunch: this.removeFromLunch,
       handleClearLunchList: this.clearLunchList,
+      reRenderDom: this.reRender,
     };
 
     return (

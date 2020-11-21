@@ -45,6 +45,99 @@ class PantryModalItem extends React.Component {
     );
   };
 
+  patchFields = () => {
+    const itemId = parseInt(this.props.id);
+    const selectionCategories = [];
+    const carb = document.getElementById(`carbCheck_${this.props.index}`)
+      .checked;
+    const veg = document.getElementById(`vegCheck_${this.props.index}`).checked;
+    const fruit = document.getElementById(`fruitCheck_${this.props.index}`)
+      .checked;
+    const protein = document.getElementById(`proteinCheck_${this.props.index}`)
+      .checked;
+    const drink = document.getElementById(`drinkCheck_${this.props.index}`)
+      .checked;
+    const dessert = document.getElementById(`dessertCheck_${this.props.index}`)
+      .checked;
+    const quantityNumber = parseInt(
+      document.getElementById(`quantityId_${this.props.index}`).value
+    );
+    const itemName = document
+      .getElementById(`add-input-name_${this.props.index}`)
+      .value.toLowerCase();
+    if (carb) {
+      selectionCategories.push("carb");
+    }
+    if (veg) {
+      selectionCategories.push("vegetable");
+    }
+    if (fruit) {
+      selectionCategories.push("fruit");
+    }
+    if (protein) {
+      selectionCategories.push("protein");
+    }
+    if (drink) {
+      selectionCategories.push("drink");
+    }
+    if (dessert) {
+      selectionCategories.push("dessert");
+    }
+    if (selectionCategories.length >= 2) {
+      selectionCategories.push("combo");
+      const itemSelection = {
+        Categories: selectionCategories,
+      };
+      const patchFields = {
+        item_name: itemName,
+        quantity: quantityNumber,
+      };
+      console.log(itemSelection, "if item selection -Pantry");
+      // updatePantryItem.pantryUpdate(
+      //   `${config.API_ENDPOINT}/pantry/${itemId}`,
+      //   itemSelection,
+      //   patchFields
+      // );
+      const reRenderList = async () => {
+        const wait = await updatePantryItem.pantryUpdate(
+          `${config.API_ENDPOINT}/pantry/${itemId}`,
+          itemSelection,
+          patchFields
+        );
+
+        this.props.render();
+        this.setState({ showEdit: !this.state.showEdit });
+      };
+      reRenderList();
+    } else {
+      const itemSelection = {
+        Categories: selectionCategories,
+      };
+      const patchFields = {
+        item_name: itemName,
+        quantity: quantityNumber,
+      };
+      console.log(itemSelection, "else item selection -Pantry");
+
+      updatePantryItem.pantryUpdate(
+        `${config.API_ENDPOINT}/pantry/${itemId}`,
+        itemSelection,
+        patchFields
+      );
+      const reRenderList = async () => {
+        const wait = await updatePantryItem.pantryUpdate(
+          `${config.API_ENDPOINT}/pantry/${itemId}`,
+          itemSelection,
+          patchFields
+        );
+
+        this.props.render();
+        this.setState({ showEdit: !this.state.showEdit });
+      };
+      reRenderList();
+    }
+  };
+
   isCheckedOrNot(string) {
     const str = this.props.categories;
     if (str.includes(string)) {
@@ -55,11 +148,19 @@ class PantryModalItem extends React.Component {
   }
 
   renderChecked() {
+    const carbId = `carbCheck_${this.props.index}`;
+    const vegId = `vegCheck_${this.props.index}`;
+    const fruitId = `fruitCheck_${this.props.index}`;
+    const proteinId = `proteinCheck_${this.props.index}`;
+    const drinkId = `drinkCheck_${this.props.index}`;
+    const dessertId = `dessertCheck_${this.props.index}`;
+    const inputId = `add-input-name_${this.props.index}`;
+
     return (
       <>
         <div className="modal-item-left-top add-input">
           <input
-            id="add-input-name"
+            id={inputId}
             className="add-item-input pantry-input"
             defaultValue={this.props.name}
           ></input>
@@ -113,42 +214,42 @@ class PantryModalItem extends React.Component {
             <div className="image-icon-1-checkbox">
               <input
                 defaultChecked={this.isCheckedOrNot("carb")}
-                id="carbCheck"
+                id={carbId}
                 type="checkbox"
               />
             </div>
             <div className="image-icon-2-checkbox">
               <input
                 defaultChecked={this.isCheckedOrNot("vegetable")}
-                id="vegCheck"
+                id={vegId}
                 type="checkbox"
               />
             </div>
             <div className="image-icon-2-checkbox">
               <input
                 defaultChecked={this.isCheckedOrNot("fruit")}
-                id="fruitCheck"
+                id={fruitId}
                 type="checkbox"
               />
             </div>
             <div className="image-icon-2-checkbox">
               <input
                 defaultChecked={this.isCheckedOrNot("protein")}
-                id="proteinCheck"
+                id={proteinId}
                 type="checkbox"
               />
             </div>
             <div className="image-icon-2-checkbox">
               <input
                 defaultChecked={this.isCheckedOrNot("drink")}
-                id="drinkCheck"
+                id={drinkId}
                 type="checkbox"
               />
             </div>
             <div className="image-icon-1-checkbox">
               <input
                 defaultChecked={this.isCheckedOrNot("dessert")}
-                id="dessertCheck"
+                id={dessertId}
                 type="checkbox"
               />
             </div>
@@ -170,16 +271,18 @@ class PantryModalItem extends React.Component {
   }
 
   renderButtonsChecked() {
+    const pantryQuantityId = `quantityId_${this.props.index}`;
     return (
       <>
         <div className="add-item-button-top-bottom">
-          <button className="btn itembtn">
+          <button onClick={this.patchFields} className="btn itembtn">
             <span className="noselect">Update</span>
             <div className="circle"></div>
           </button>
         </div>
         <div className="add-item-button-middle">
           <input
+            id={pantryQuantityId}
             className="quantity-input"
             defaultValue={this.props.quantity}
             type="number"
@@ -241,9 +344,32 @@ class PantryModalItem extends React.Component {
     );
   }
 
+  renderEditButton() {
+    return (
+      <>
+        <img
+          className="edit-img"
+          alt="edit icon"
+          src={require("../Images/edit-32.png")}
+        ></img>
+      </>
+    );
+  }
+
+  renderXButton() {
+    return (
+      <>
+        <img
+          className="edit-img"
+          alt="X icon"
+          src={require("../Images/x-mark-32.png")}
+        ></img>
+      </>
+    );
+  }
+
   render() {
     const pantryItemId = `pantryItem_${this.props.index}`;
-    const pantryQuantityId = `quantityId_${this.props.index}`;
     const pantryEditId = `editId_${this.props.index}`;
     return (
       <div id={pantryItemId} className="modal-item">
@@ -251,11 +377,9 @@ class PantryModalItem extends React.Component {
           <div className="modal-item-left pantry">
             <div className="edit-wrapper">
               <div className="edit-wrapper-inner">
-                <img
-                  className="edit-img"
-                  alt="update icon"
-                  src={require("../Images/edit-32.png")}
-                ></img>
+                {this.state.showEdit
+                  ? this.renderXButton()
+                  : this.renderEditButton()}
                 <input
                   id={pantryEditId}
                   type="checkbox"
@@ -267,7 +391,6 @@ class PantryModalItem extends React.Component {
                 />
               </div>
             </div>
-
             {this.state.showEdit
               ? this.renderChecked()
               : this.renderNotChecked()}
