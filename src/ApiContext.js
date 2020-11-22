@@ -5,5 +5,10 @@ export default React.createContext({
   handleAddToLunch: [],
   handleRemoveFromLunch: [],
   handleClearLunchList: [],
-  reRenderDom: [],
+  handleCheckTheMasterCheckBox: [],
+  handleCheckThePantryCheckBox: [],
+  handleCheckTheAllCheckBox: [],
+  masterCheckBoxStatus: [],
+  pantryCheckBoxStatus: [],
+  allCheckBoxStatus: [],
 });

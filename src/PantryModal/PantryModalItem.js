@@ -59,9 +59,9 @@ class PantryModalItem extends React.Component {
       .checked;
     const dessert = document.getElementById(`dessertCheck_${this.props.index}`)
       .checked;
-    const quantityNumber = parseInt(
-      document.getElementById(`quantityId_${this.props.index}`).value
-    );
+    const quantityNumber = document.getElementById(
+      `quantityId_${this.props.index}`
+    ).value;
     const itemName = document
       .getElementById(`add-input-name_${this.props.index}`)
       .value.toLowerCase();
@@ -93,11 +93,7 @@ class PantryModalItem extends React.Component {
         quantity: quantityNumber,
       };
       console.log(itemSelection, "if item selection -Pantry");
-      // updatePantryItem.pantryUpdate(
-      //   `${config.API_ENDPOINT}/pantry/${itemId}`,
-      //   itemSelection,
-      //   patchFields
-      // );
+
       const reRenderList = async () => {
         const wait = await updatePantryItem.pantryUpdate(
           `${config.API_ENDPOINT}/pantry/${itemId}`,
@@ -371,6 +367,7 @@ class PantryModalItem extends React.Component {
   render() {
     const pantryItemId = `pantryItem_${this.props.index}`;
     const pantryEditId = `editId_${this.props.index}`;
+    console.log(this.props, "props");
     return (
       <div id={pantryItemId} className="modal-item">
         <div className="modal-item-wrapper">

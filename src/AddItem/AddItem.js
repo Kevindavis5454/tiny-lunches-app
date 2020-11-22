@@ -2,13 +2,10 @@ import React from "react";
 import ApiContext from "../ApiContext";
 import addNewCustomItem from "../services/add-custom-item";
 import config from "../config";
+import TokenService from "../services/token-service";
 
 class AddItem extends React.Component {
   static contextType = ApiContext;
-
-  reRender = () => {
-    this.context.reRenderDom();
-  };
 
   addCustomItem = () => {
     const selectionCategories = [];
@@ -110,6 +107,21 @@ class AddItem extends React.Component {
     }
   };
 
+  renderAuthPantryButton() {
+    return (
+      <>
+        <button onClick={this.addCustomItemToPantry} className="btn itembtn">
+          <span className="noselect">Pantry</span>
+          <div className="circle"></div>
+        </button>
+      </>
+    );
+  }
+
+  renderNoAuthPantryButton() {
+    return <></>;
+  }
+
   render() {
     return (
       <div className="modal-item">
@@ -207,13 +219,9 @@ class AddItem extends React.Component {
               ></input>
             </div>
             <div className="add-item-button-top-bottom">
-              <button
-                onClick={this.addCustomItemToPantry}
-                className="btn itembtn"
-              >
-                <span className="noselect">Pantry</span>
-                <div className="circle"></div>
-              </button>
+              {TokenService.hasAuthToken()
+                ? this.renderAuthPantryButton()
+                : this.renderNoAuthPantryButton()}
             </div>
           </div>
         </div>

@@ -24,6 +24,9 @@ class App extends React.Component {
     masterCombo: [],
     userSelections: [],
     name: [],
+    masterCheckBox: true,
+    pantryCheckBox: false,
+    allCheckBox: false,
   };
 
   componentDidMount() {
@@ -65,8 +68,14 @@ class App extends React.Component {
     });
   };
 
-  reRender = () => {
-    this.forceUpdate();
+  checkTheMasterCheckBox = () => {
+    this.setState({ masterCheckBox: !this.state.masterCheckBox });
+  };
+  checkThePantryCheckBox = () => {
+    this.setState({ pantryCheckBox: !this.state.pantryCheckBox });
+  };
+  checkTheAllCheckBox = () => {
+    this.setState({ allCheckBox: !this.state.allCheckBox });
   };
 
   render() {
@@ -77,7 +86,12 @@ class App extends React.Component {
       handleAddToLunch: this.addToLunch,
       handleRemoveFromLunch: this.removeFromLunch,
       handleClearLunchList: this.clearLunchList,
-      reRenderDom: this.reRender,
+      handleCheckTheMasterCheckBox: this.checkTheMasterCheckBox,
+      handleCheckThePantryCheckBox: this.checkThePantryCheckBox,
+      handleCheckTheAllCheckBox: this.checkTheAllCheckBox,
+      masterCheckBoxStatus: this.state.masterCheckBox,
+      pantryCheckBoxStatus: this.state.pantryCheckBox,
+      allCheckBoxStatus: this.state.allCheckBox,
     };
 
     return (

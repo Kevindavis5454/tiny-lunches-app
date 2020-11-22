@@ -173,7 +173,7 @@ const PantryItemSort = {
                 });
               if (carb.category_6 !== null)
                 return masterCarbHolding.push({
-                  Quantity: carb.quanitity,
+                  Quantity: carb.quantity,
                   Id: carb.id,
                   Name: carb.item_name,
                   Categories: `${carb.category_1}, ${carb.category_2}, ${carb.category_3}, ${carb.category_4}

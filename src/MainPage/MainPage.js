@@ -2,6 +2,9 @@ import React from "react";
 import ApiContext from "../ApiContext";
 import ItemModal from "../ItemModal/ItemModal";
 import LunchItem from "../LunchItem/LunchItem";
+import PantryItemSort from "../services/pantry-sort-service";
+import config from "../config";
+import TokenService from "../services/token-service";
 
 class MainPage extends React.Component {
   static contextType = ApiContext;
@@ -14,10 +17,64 @@ class MainPage extends React.Component {
     isDrinkOpen: false,
     isDessertOpen: false,
     isComboOpen: false,
+    pantryListFull: [],
+    pantryVegetable: [],
+    pantryFruit: [],
+    pantryCarb: [],
+    pantryProtein: [],
+    pantryDrink: [],
+    pantryDessert: [],
+    pantryCombo: [],
+  };
+
+  componentDidMount() {
+    if (TokenService.hasAuthToken()) {
+      const user = localStorage.getItem("user_id");
+      PantryItemSort.getPantryList(
+        `${config.API_ENDPOINT}/pantry/users/${user}`
+      ).then((sortedData) => {
+        this.setState({
+          pantryVegetable: sortedData.Vegetable,
+          pantryFruit: sortedData.Fruit,
+          pantryCarb: sortedData.Carb,
+          pantryProtein: sortedData.Protein,
+          pantryDrink: sortedData.Drink,
+          pantryDessert: sortedData.Dessert,
+          pantryCombo: sortedData.Combo,
+        });
+      });
+    }
+  }
+
+  reRender = () => {
+    const user = localStorage.getItem("user_id");
+    PantryItemSort.getPantryList(
+      `${config.API_ENDPOINT}/pantry/users/${user}`
+    ).then((sortedData) => {
+      this.setState({
+        pantryVegetable: sortedData.Vegetable,
+        pantryFruit: sortedData.Fruit,
+        pantryCarb: sortedData.Carb,
+        pantryProtein: sortedData.Protein,
+        pantryDrink: sortedData.Drink,
+        pantryDessert: sortedData.Dessert,
+        pantryCombo: sortedData.Combo,
+      });
+    });
   };
 
   clearLunchList = () => {
     this.context.handleClearLunchList();
+  };
+
+  handleCheckTheMasterCheckBox = () => {
+    this.context.handleCheckTheMasterCheckBox();
+  };
+  handleCheckThePantryCheckBox = () => {
+    this.context.handleCheckThePantryCheckBox();
+  };
+  handleCheckTheAllCheckBox = () => {
+    this.context.handleCheckTheAllCheckBox();
   };
 
   render() {
@@ -45,10 +102,12 @@ class MainPage extends React.Component {
                 <div className="circleIcon"></div>
               </div>
               <ItemModal
+                pantryData={this.state.pantryCarb}
                 data={this.props.data.masterCarb}
                 itemType="carb"
                 open={this.state.isCarbOpen}
                 onClose={() => this.setState({ isCarbOpen: false })}
+                render={this.reRender}
               />
             </div>
             <div className="icons-top">
@@ -65,10 +124,12 @@ class MainPage extends React.Component {
                 <div className="circleIcon"></div>
               </div>
               <ItemModal
+                pantryData={this.state.pantryVegetable}
                 data={this.props.data.masterVegetable}
                 itemType="veggie"
                 open={this.state.isVeggieOpen}
                 onClose={() => this.setState({ isVeggieOpen: false })}
+                render={this.reRender}
               />
             </div>
             <div className="icons-top">
@@ -85,10 +146,12 @@ class MainPage extends React.Component {
                 <div className="circleIcon"></div>
               </div>
               <ItemModal
+                pantryData={this.state.pantryFruit}
                 data={this.props.data.masterFruit}
                 itemType="fruit"
                 open={this.state.isFruitOpen}
                 onClose={() => this.setState({ isFruitOpen: false })}
+                render={this.reRender}
               />
             </div>
             <div className="icons-top">
@@ -105,10 +168,12 @@ class MainPage extends React.Component {
                 <div className="circleIcon"></div>
               </div>
               <ItemModal
+                pantryData={this.state.pantryProtein}
                 data={this.props.data.masterProtein}
                 itemType="protein"
                 open={this.state.isProteinOpen}
                 onClose={() => this.setState({ isProteinOpen: false })}
+                render={this.reRender}
               />
             </div>
             <div className="icons-top">
@@ -125,10 +190,12 @@ class MainPage extends React.Component {
                 <div className="circleIcon"></div>
               </div>
               <ItemModal
+                pantryData={this.state.pantryDrink}
                 data={this.props.data.masterDrink}
                 itemType="drink"
                 open={this.state.isDrinkOpen}
                 onClose={() => this.setState({ isDrinkOpen: false })}
+                render={this.reRender}
               />
             </div>
           </div>
@@ -147,10 +214,12 @@ class MainPage extends React.Component {
                 <div className="circleIcon"></div>
               </div>
               <ItemModal
+                pantryData={this.state.pantryDessert}
                 data={this.props.data.masterDessert}
                 itemType="dessert"
                 open={this.state.isDessertOpen}
                 onClose={() => this.setState({ isDessertOpen: false })}
+                render={this.reRender}
               />
             </div>
             <div className="icons-bottom-middle">
@@ -161,13 +230,25 @@ class MainPage extends React.Component {
               </div>
               <div className="list-check-bottom">
                 <div className="list-check-left-right">
-                  <input type="checkbox" />
+                  <input
+                    onClick={this.handleCheckTheMasterCheckBox}
+                    defaultChecked={this.context.masterCheckBoxStatus}
+                    type="checkbox"
+                  />
                 </div>
                 <div className="list-check-middle">
-                  <input type="checkbox" />
+                  <input
+                    onClick={this.handleCheckThePantryCheckBox}
+                    defaultChecked={this.context.pantryCheckBoxStatus}
+                    type="checkbox"
+                  />
                 </div>
                 <div className="list-check-left-right">
-                  <input type="checkbox" />
+                  <input
+                    onClick={this.handleCheckTheAllCheckBox}
+                    defaultChecked={this.context.allCheckBoxStatus}
+                    type="checkbox"
+                  />
                 </div>
               </div>
             </div>
@@ -185,10 +266,12 @@ class MainPage extends React.Component {
                 <div className="circleIcon"></div>
               </div>
               <ItemModal
+                pantryData={this.state.pantryCombo}
                 data={this.props.data.masterCombo}
                 itemType="combo"
                 open={this.state.isComboOpen}
                 onClose={() => this.setState({ isComboOpen: false })}
+                render={this.reRender}
               />
             </div>
           </div>

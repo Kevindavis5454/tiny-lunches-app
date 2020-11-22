@@ -20,7 +20,6 @@ export default class Pantry extends React.Component {
     pantryDrink: [],
     pantryDessert: [],
     pantryCombo: [],
-    name: [],
   };
 
   reRender = () => {
