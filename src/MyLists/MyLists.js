@@ -1,5 +1,6 @@
 import React from "react";
 import config from "../config";
+import ReactToPrint, { PrintContextConsumer } from 'react-to-print';
 
 class MyLists extends React.Component {
   state = {
@@ -100,14 +101,22 @@ class MyLists extends React.Component {
               </div>
               <div className="share-button-wrapper">
                 <div className="btnIcon">
-                  <button className="noselect">Print</button>
-                  <div className="circleIcon"></div>
+                  <ReactToPrint content={() => this.componentRef} copyStyles= {false}>
+                  <PrintContextConsumer>
+                    {({ handlePrint }) => (
+                      <button id="print-btn" className="noselect" onClick={handlePrint}>
+                      <span>Print</span>
+                      <div className="circleIcon"></div>
+                      </button>
+                    )}
+                  </PrintContextConsumer>
+                  </ReactToPrint>
                 </div>
               </div>
             </div>
           </div>
           <div className="my-lists-display-wrapper">
-            <div className="modal-list-wrapper">{renderListItems}</div>
+            <div className="modal-list-wrapper" ref={el => (this.componentRef = el)}>{renderListItems}</div>
           </div>
         </div>
       </>

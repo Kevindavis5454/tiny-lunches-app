@@ -2,6 +2,8 @@ import React from "react";
 import PantryItemModal from "../PantryModal/PantryItemModal";
 import PantryItemSort from "../services/pantry-sort-service";
 import config from "../config";
+import ReactToPrint, { PrintContextConsumer } from 'react-to-print';
+
 
 export default class Pantry extends React.Component {
   state = {
@@ -186,10 +188,16 @@ export default class Pantry extends React.Component {
                 />
               </div>
               <div className="item-wrappers-bottom-middle border2">
-                <button id="print-btn" className="btn">
+                <ReactToPrint content={() => this.componentRef} copyStyles= { false }>
+                <PrintContextConsumer>
+                  {({ handlePrint }) => (
+                    <button id="print-btn" className="btn" onClick={handlePrint}>
                   <span className="noselect">Print</span>
                   <div className="circle"></div>
                 </button>
+                  )}
+                </PrintContextConsumer>
+                </ReactToPrint>
               </div>
               <div className="icons-bottom-left-right">
                 <div
@@ -218,7 +226,7 @@ export default class Pantry extends React.Component {
               <h2>Shopping List</h2>
             </div>
             <div className="shopping-list-display-wrapper">
-              <div className="shopping-list-display">
+              <div className="shopping-list-display" ref={el => (this.componentRef = el)}>
                 <div className="shopping-item"></div>
                 <div className="shopping-item"></div>
                 <div className="shopping-item"></div>
