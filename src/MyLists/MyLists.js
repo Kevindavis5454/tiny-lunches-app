@@ -1,6 +1,7 @@
 import React from "react";
 import config from "../config";
-import ReactToPrint, { PrintContextConsumer } from 'react-to-print';
+import ReactToPrint, { PrintContextConsumer } from "react-to-print";
+import saveLunchList from "../services/save-lunch";
 
 class MyLists extends React.Component {
   state = {
@@ -11,9 +12,8 @@ class MyLists extends React.Component {
   componentDidMount() {
     const user = localStorage.getItem("user_id");
     const token = localStorage.getItem(config.TOKEN_KEY);
-    console.log(user, "local user");
     const getUserLists = () => {
-      fetch(`${config.API_ENDPOINT}/savedlunches/${user}`, {
+      fetch(`${config.API_ENDPOINT}/savedlunches/users/${user}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -21,27 +21,82 @@ class MyLists extends React.Component {
       })
         .then((res) => res.json())
         .then((lists) => {
+          console.log(lists, "response lists");
           const masterListofLists = [];
-          masterListofLists.push(lists);
-          this.setState({
-            lists: masterListofLists,
-          });
-          console.log(this.state.lists, "state lists");
+          const sortLists = () => {
+            lists.map((list) => {
+              return masterListofLists.push(list);
+            });
+            this.setState({
+              lists: masterListofLists,
+            });
+            console.log(this.state.lists, "state lists");
+          };
+          sortLists();
         });
     };
     getUserLists();
   }
 
+  reRender = () => {
+    const user = localStorage.getItem("user_id");
+    const token = localStorage.getItem(config.TOKEN_KEY);
+    const getUserLists = () => {
+      fetch(`${config.API_ENDPOINT}/savedlunches/users/${user}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((lists) => {
+          console.log(lists, "response lists");
+          const masterListofLists = [];
+          const sortLists = () => {
+            lists.map((list) => {
+              return masterListofLists.push(list);
+            });
+            this.setState({
+              lists: masterListofLists,
+            });
+            console.log(this.state.lists, "state lists");
+          };
+          sortLists();
+        });
+    };
+    getUserLists();
+  };
+
   handleSetSelectedList = () => {
     this.setState({ selectedList: [] });
+  };
+
+  deleteSavedList = () => {
+    const sel = document.getElementById("list-select");
+    const selected = sel.options[sel.selectedIndex];
+    const extra = selected.getAttribute("data");
+    const remove = selected.getAttribute("data-remove-id");
+    console.log(remove, "remove");
+
+    saveLunchList.deleteLunch(`${config.API_ENDPOINT}/savedlunches/${extra}`);
+    document.getElementById(remove).remove();
+    this.reRender();
+    // optionRemove.remove();
   };
 
   render() {
     const savedListSelect = document.getElementById("list-select");
 
     const renderLists = this.state.lists.map((list, index) => {
+      const optionId = `option_${list.id}`;
       return (
-        <option value={list.title} key={index}>
+        <option
+          id={optionId}
+          data-remove-id={optionId}
+          data={list.id}
+          value={list.title}
+          key={index}
+        >
           {list.title}
         </option>
       );
@@ -71,52 +126,47 @@ class MyLists extends React.Component {
               </div>
               <div className="choose-select-wrapper">
                 <select
+                  defaultValue="selected"
                   onChange={this.handleSetSelectedList}
                   id="list-select"
                   className="lunch-select"
                 >
                   {renderLists}
-                  <option>Select a Lunch</option>
+                  <option value="selected">Select a Lunch</option>
                 </select>
-              </div>
-            </div>
-            <div className="share-my-list-wrapper">
-              <div className="share-button-wrapper">
-                <div className="btnIcon">
-                  <button className="noselect">Facebook</button>
-                  <div className="circleIcon"></div>
-                </div>
-              </div>
-              <div className="share-button-wrapper">
-                <div className="btnIcon">
-                  <button className="noselect">Pinterest</button>
-                  <div className="circleIcon"></div>
-                </div>
-              </div>
-              <div className="share-button-wrapper">
-                <div className="btnIcon">
-                  <button className="noselect">Instagram</button>
-                  <div className="circleIcon"></div>
-                </div>
-              </div>
-              <div className="share-button-wrapper">
-                <div className="btnIcon">
-                  <ReactToPrint content={() => this.componentRef} copyStyles= {false}>
-                  <PrintContextConsumer>
-                    {({ handlePrint }) => (
-                      <button id="print-btn" className="noselect" onClick={handlePrint}>
-                      <span>Print</span>
-                      <div className="circleIcon"></div>
-                      </button>
-                    )}
-                  </PrintContextConsumer>
-                  </ReactToPrint>
-                </div>
               </div>
             </div>
           </div>
           <div className="my-lists-display-wrapper">
-            <div className="modal-list-wrapper" ref={el => (this.componentRef = el)}>{renderListItems}</div>
+            <div
+              className="modal-list-wrapper"
+              ref={(el) => (this.componentRef = el)}
+            >
+              {renderListItems}
+            </div>
+          </div>
+          <div className="share-my-list-wrapper">
+            <div className="share-button-wrapper">
+              <ReactToPrint
+                content={() => this.componentRef}
+                copyStyles={false}
+              >
+                <PrintContextConsumer>
+                  {({ handlePrint }) => (
+                    <button className="btn" onClick={handlePrint}>
+                      <span className="noselect">Print</span>
+                      <div className="circle"></div>
+                    </button>
+                  )}
+                </PrintContextConsumer>
+              </ReactToPrint>
+            </div>
+            <div className="delete-lunch-wrapper">
+              <button onClick={this.deleteSavedList} className="btn">
+                <span className="noselect">Delete</span>
+                <div className="circle"></div>
+              </button>
+            </div>
           </div>
         </div>
       </>

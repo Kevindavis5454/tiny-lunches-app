@@ -5,6 +5,7 @@ import LunchItem from "../LunchItem/LunchItem";
 import PantryItemSort from "../services/pantry-sort-service";
 import config from "../config";
 import TokenService from "../services/token-service";
+import saveLunchList from "../services/save-lunch";
 
 class MainPage extends React.Component {
   static contextType = ApiContext;
@@ -75,6 +76,25 @@ class MainPage extends React.Component {
   };
   handleCheckTheAllCheckBox = () => {
     this.context.handleCheckTheAllCheckBox();
+  };
+
+  saveLunchItems = (e) => {
+    e.preventDefault();
+    const lunchName = document.getElementById("saved-lunch-name").value;
+    const savedItems = [];
+    const sortItems = () => {
+      this.context.userSelections.map((item) => {
+        return savedItems.push(item.Name);
+      });
+      console.log(savedItems, "saved Items list");
+    };
+    sortItems();
+    const lunchList = {
+      user_id: localStorage.getItem("user_id"),
+      title: lunchName,
+      items: savedItems,
+    };
+    saveLunchList.saveLunch(`${config.API_ENDPOINT}/savedlunches`, lunchList);
   };
 
   render() {
@@ -295,97 +315,31 @@ class MainPage extends React.Component {
             <div className="lunch-items-wrapper">
               <div className="modal-list-wrapper">{renderList}</div>
             </div>
-            <div className="lunch-save-button-wrapper">
-              <button className="btn">
-                <span className="noselect">Save</span>
-                <div className="circle"></div>
-              </button>
-              <button className="btn" onClick={this.clearLunchList}>
-                <span className="noselect">Clear</span>
-                <div className="circle"></div>
-              </button>
-            </div>
+            <form
+              onSubmit={this.saveLunchItems}
+              className="lunch-save-button-wrapper"
+            >
+              <div className="upper-savedLunch-wrapper">
+                <input
+                  required
+                  id="saved-lunch-name"
+                  className="saved-lunch-input"
+                  placeholder="My Lunches Name"
+                />
+              </div>
+              <div className="lower-savedLunch-wrapper">
+                <button type="submit" className="btn">
+                  <span className="noselect">Save</span>
+                  <div className="circle"></div>
+                </button>
+                <button className="btn" onClick={this.clearLunchList}>
+                  <span className="noselect">Clear</span>
+                  <div className="circle"></div>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
-        <form className="randomize-wrapper">
-          <div className="randomize-button-wrapper">
-            <button className="btn">
-              <span className="noselect">Randomize</span>
-              <div className="circle"></div>
-            </button>
-          </div>
-          <div className="randomize-checkboxes-wrapper">
-            <div className="randomize-title-wrapper">
-              <span>Check the categories to Randomize!</span>
-            </div>
-            <div className="checkboxes-wrapper">
-              <div className="checkboxes-left">
-                <div className="checkbox1">
-                  <div className="checkbox">
-                    <div className="checkbox-left">
-                      <label>Veggie</label>
-                    </div>
-                    <div className="checkbox-right">
-                      <input type="checkbox" />
-                    </div>
-                  </div>
-                </div>
-                <div className="checkbox2">
-                  <div className="checkbox">
-                    <div className="checkbox-left">
-                      <label>Fruit</label>
-                    </div>
-                    <div className="checkbox-right">
-                      <input type="checkbox" />
-                    </div>
-                  </div>
-                </div>
-                <div className="checkbox3">
-                  <div className="checkbox">
-                    <div className="checkbox-left">
-                      <label>Protein</label>
-                    </div>
-                    <div className="checkbox-right">
-                      <input type="checkbox" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="checkboxes-right">
-                <div className="checkbox1">
-                  <div className="checkbox">
-                    <div className="checkbox-left">
-                      <label>Carb</label>
-                    </div>
-                    <div className="checkbox-right">
-                      <input type="checkbox" />
-                    </div>
-                  </div>
-                </div>
-                <div className="checkbox2">
-                  <div className="checkbox">
-                    <div className="checkbox-left">
-                      <label>Drink</label>
-                    </div>
-                    <div className="checkbox-right">
-                      <input type="checkbox" />
-                    </div>
-                  </div>
-                </div>
-                <div className="checkbox3">
-                  <div className="checkbox">
-                    <div className="checkbox-left">
-                      <label>Dessert</label>
-                    </div>
-                    <div className="checkbox-right">
-                      <input type="checkbox" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
       </>
     );
   }
