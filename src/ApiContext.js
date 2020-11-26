@@ -11,4 +11,8 @@ export default React.createContext({
   masterCheckBoxStatus: [],
   pantryCheckBoxStatus: [],
   allCheckBoxStatus: [],
+  shoppingList: [],
+  handleAddToShoppingList: [],
+  handleRemoveFromShoppingList: [],
+  handleClearShoppingList: [],
 });

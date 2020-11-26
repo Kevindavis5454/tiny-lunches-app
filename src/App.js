@@ -11,10 +11,12 @@ import ApiContext from "./ApiContext";
 import ItemSort from "./services/item-sort-service";
 import PrivateRoute from "./PrivateRoute";
 import AddItem from "./AddItem/AddItem";
+import GetAllData from "./services/get-all-data";
 
 class App extends React.Component {
   state = {
     masterListFull: [],
+    masterListFiltered: [],
     masterVegetable: [],
     masterFruit: [],
     masterCarb: [],
@@ -27,6 +29,7 @@ class App extends React.Component {
     masterCheckBox: true,
     pantryCheckBox: false,
     allCheckBox: false,
+    shoppingList: [],
   };
 
   componentDidMount() {
@@ -40,6 +43,29 @@ class App extends React.Component {
           masterDrink: sortedData.Drink,
           masterDessert: sortedData.Dessert,
           masterCombo: sortedData.Combo,
+        });
+      }
+    );
+    GetAllData.getMasterData(`${config.API_ENDPOINT}/items?user_id=1`).then(
+      (data1) => {
+        const array1 = [];
+        const array2 = [];
+        console.log(data1, "data1");
+        array1.push(data1);
+        GetAllData.getMasterPantryData(
+          `${config.API_ENDPOINT}/pantry/users/${localStorage.getItem(
+            "user_id"
+          )}`
+        ).then((data2) => {
+          console.log(data2, "data2");
+          array2.push(data2);
+          const combined = array1.concat(array2);
+          const joined = [].concat.apply([], combined);
+          console.log(joined, "combined final");
+          this.setState({
+            masterListFull: joined,
+            masterListFiltered: joined,
+          });
         });
       }
     );
@@ -68,6 +94,27 @@ class App extends React.Component {
     });
   };
 
+  addToShoppingList = (item) => {
+    this.setState((previousState) => ({
+      shoppingList: [...previousState.shoppingList, item],
+    }));
+  };
+
+  removeFromShoppingList = (item) => {
+    let array = Array.from(this.state.shoppingList);
+    let index = this.state.shoppingList.findIndex((x) => x.Name === item.Name);
+    if (index !== -1) {
+      array.splice(index, 1);
+      this.setState({ shoppingList: array });
+    }
+  };
+
+  clearShoppingList = () => {
+    this.setState({
+      shoppingList: [],
+    });
+  };
+
   checkTheMasterCheckBox = () => {
     this.setState({ masterCheckBox: !this.state.masterCheckBox });
   };
@@ -92,6 +139,10 @@ class App extends React.Component {
       masterCheckBoxStatus: this.state.masterCheckBox,
       pantryCheckBoxStatus: this.state.pantryCheckBox,
       allCheckBoxStatus: this.state.allCheckBox,
+      shoppingList: this.state.shoppingList,
+      handleAddToShoppingList: this.addToShoppingList,
+      handleRemoveFromShoppingList: this.removeFromShoppingList,
+      handleClearShoppingList: this.clearShoppingList,
     };
 
     return (
