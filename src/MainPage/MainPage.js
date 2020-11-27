@@ -75,7 +75,6 @@ class MainPage extends React.Component {
       this.context.userSelections.map((item) => {
         return savedItems.push(item.Name);
       });
-      console.log(savedItems, "saved Items list");
     };
     sortItems();
     const lunchList = {
@@ -96,7 +95,6 @@ class MainPage extends React.Component {
         return filteredList.push(item);
       }
     });
-    console.log(filteredList, "filtered");
     this.context.handleFilterMasterListFiltered(filteredList);
   };
 
@@ -151,7 +149,6 @@ class MainPage extends React.Component {
   }
 
   render() {
-    console.log(this.state, "main page state");
     const renderList = this.props.data.userSelections.map((item, index) => {
       return (
         <LunchItem key={index} name={item.Name} categories={item.Categories} />

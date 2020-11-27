@@ -21,7 +21,6 @@ class MyLists extends React.Component {
       })
         .then((res) => res.json())
         .then((lists) => {
-          console.log(lists, "response lists");
           const masterListofLists = [];
           const sortLists = () => {
             lists.map((list) => {
@@ -30,7 +29,6 @@ class MyLists extends React.Component {
             this.setState({
               lists: masterListofLists,
             });
-            console.log(this.state.lists, "state lists");
           };
           sortLists();
         });
@@ -50,7 +48,6 @@ class MyLists extends React.Component {
       })
         .then((res) => res.json())
         .then((lists) => {
-          console.log(lists, "response lists");
           const masterListofLists = [];
           const sortLists = () => {
             lists.map((list) => {
@@ -59,7 +56,6 @@ class MyLists extends React.Component {
             this.setState({
               lists: masterListofLists,
             });
-            console.log(this.state.lists, "state lists");
           };
           sortLists();
         });
@@ -76,7 +72,6 @@ class MyLists extends React.Component {
     const selected = sel.options[sel.selectedIndex];
     const extra = selected.getAttribute("data");
     const remove = selected.getAttribute("data-remove-id");
-    console.log(remove, "remove");
 
     saveLunchList.deleteLunch(`${config.API_ENDPOINT}/savedlunches/${extra}`);
     document.getElementById(remove).remove();
@@ -104,7 +99,6 @@ class MyLists extends React.Component {
 
     const renderListItems = this.state.lists.map((item) => {
       const selectedList = savedListSelect.value;
-      console.log(selectedList, "selected list");
       if (item.title == selectedList) {
         return item.items.map((food, index) => {
           return (

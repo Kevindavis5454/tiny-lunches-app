@@ -12,7 +12,6 @@ export default class SearchModal extends React.Component {
 
   render() {
     if (!this.props.open) return null;
-    console.log(this.props, "Search modal Props");
     const renderList = this.props.data.map((item, index) => {
       if (item.quantity) {
         const categoryList = [];

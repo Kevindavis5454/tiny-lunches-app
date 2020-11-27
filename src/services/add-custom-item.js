@@ -18,7 +18,6 @@ const addNewCustomItem = {
       ...newItem,
       ...sortedObjects,
     };
-    console.log(mergedObject, "merged fun");
     return fetch(url, {
       method: "POST",
       headers: {

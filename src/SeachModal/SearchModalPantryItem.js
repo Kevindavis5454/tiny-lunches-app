@@ -39,7 +39,6 @@ class SearchModalPantryItem extends React.Component {
     const quantityNumber = parseInt(
       document.getElementById(`quantityId_${this.props.index}`).value
     );
-    console.log(quantityNumber, "quantity number");
     const field = { quantity: quantityNumber };
     updatePantryItem.quantity(
       `${config.API_ENDPOINT}/pantry/${this.props.id}`,
@@ -95,7 +94,6 @@ class SearchModalPantryItem extends React.Component {
         item_name: itemName,
         quantity: quantityNumber,
       };
-      console.log(itemSelection, "if item selection -Pantry");
 
       const reRenderList = async () => {
         const wait = await updatePantryItem.pantryUpdate(
@@ -117,7 +115,6 @@ class SearchModalPantryItem extends React.Component {
         item_name: itemName,
         quantity: quantityNumber,
       };
-      console.log(itemSelection, "else item selection -Pantry");
 
       updatePantryItem.pantryUpdate(
         `${config.API_ENDPOINT}/pantry/${itemId}`,

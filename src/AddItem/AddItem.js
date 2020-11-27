@@ -42,7 +42,6 @@ class AddItem extends React.Component {
         Name: document.getElementById("add-input-name").value,
         Categories: selectionCategories.toString().toLowerCase(),
       };
-      console.log(itemSelection, "if item selection");
       this.context.handleAddToLunch(itemSelection);
     } else {
       const itemSelection = {
@@ -50,7 +49,6 @@ class AddItem extends React.Component {
         Name: document.getElementById("add-input-name").value,
         Categories: selectionCategories.toString().toLowerCase(),
       };
-      console.log(itemSelection, "else item selection");
       this.context.handleAddToLunch(itemSelection);
     }
   };
@@ -90,7 +88,6 @@ class AddItem extends React.Component {
         Name: document.getElementById("add-input-name").value.toLowerCase(),
         Categories: selectionCategories,
       };
-      console.log(itemSelection, "if item selection");
       addNewCustomItem.toPantry(`${config.API_ENDPOINT}/pantry`, itemSelection);
 
       this.props.render();
@@ -100,7 +97,6 @@ class AddItem extends React.Component {
         Name: document.getElementById("add-input-name").value.toLowerCase(),
         Categories: selectionCategories,
       };
-      console.log(itemSelection, "else item selection");
       addNewCustomItem.toPantry(`${config.API_ENDPOINT}/pantry`, itemSelection);
 
       this.props.render();

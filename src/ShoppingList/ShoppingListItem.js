@@ -9,7 +9,6 @@ class ShoppingListItem extends React.Component {
       name: this.props.name,
       categories: this.props.categories,
     };
-    console.log(itemSelection, "preremoval");
     this.context.handleRemoveFromShoppingList(itemSelection);
   };
 

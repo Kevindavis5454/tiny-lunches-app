@@ -37,7 +37,6 @@ class PantryModalItem extends React.Component {
     const quantityNumber = parseInt(
       document.getElementById(`quantityId_${this.props.index}`).value
     );
-    console.log(quantityNumber, "quantity number");
     const field = { quantity: quantityNumber };
     updatePantryItem.quantity(
       `${config.API_ENDPOINT}/pantry/${this.props.id}`,
@@ -92,7 +91,6 @@ class PantryModalItem extends React.Component {
         item_name: itemName,
         quantity: quantityNumber,
       };
-      console.log(itemSelection, "if item selection -Pantry");
 
       const reRenderList = async () => {
         const wait = await updatePantryItem.pantryUpdate(
@@ -113,7 +111,6 @@ class PantryModalItem extends React.Component {
         item_name: itemName,
         quantity: quantityNumber,
       };
-      console.log(itemSelection, "else item selection -Pantry");
 
       updatePantryItem.pantryUpdate(
         `${config.API_ENDPOINT}/pantry/${itemId}`,
@@ -306,7 +303,7 @@ class PantryModalItem extends React.Component {
       <>
         <div className="add-item-button-top-bottom">
           <button onClick={this.addToShoppingList} className="btn itembtn">
-            <span className="noselect">+Shopping</span>
+            <span className="noselect">+Shop</span>
             <div className="circle"></div>
           </button>
         </div>

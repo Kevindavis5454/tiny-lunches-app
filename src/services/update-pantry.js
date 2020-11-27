@@ -2,7 +2,6 @@ import config from "../config";
 
 const updatePantryItem = {
   quantity(url, updateFields) {
-    console.log(updateFields, "update fields");
     fetch(url, {
       method: "PATCH",
       headers: {
@@ -33,7 +32,6 @@ const updatePantryItem = {
       ...patchFields,
       ...sortedObjects,
     };
-    console.log(mergedObject, "merged fun");
     return fetch(url, {
       method: "PATCH",
       headers: {

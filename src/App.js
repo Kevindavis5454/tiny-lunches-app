@@ -10,7 +10,6 @@ import config from "./config";
 import ApiContext from "./ApiContext";
 import ItemSort from "./services/item-sort-service";
 import PrivateRoute from "./PrivateRoute";
-import AddItem from "./AddItem/AddItem";
 import GetAllData from "./services/get-all-data";
 import TokenService from "./services/token-service";
 
@@ -56,10 +55,9 @@ class App extends React.Component {
   reRenderMasterLists = () => {
     GetAllData.getMasterData(`${config.API_ENDPOINT}/items?user_id=1`).then(
       (data1) => {
-        console.log("I HAVE TRIGGERED");
         const array1 = [];
         const array2 = [];
-        console.log(data1, "data1");
+
         array1.push(data1);
         if (TokenService.hasAuthToken()) {
           GetAllData.getMasterPantryData(
@@ -67,11 +65,10 @@ class App extends React.Component {
               "user_id"
             )}`
           ).then((data2) => {
-            console.log(data2, "data2");
             array2.push(data2);
             const combined = array1.concat(array2);
             const joined = [].concat.apply([], combined);
-            console.log(joined, "combined final");
+
             this.setState({
               masterListFull: joined,
               masterListFiltered: joined,
@@ -82,7 +79,6 @@ class App extends React.Component {
             masterListFull: data1,
             masterListFiltered: data1,
           });
-          console.log(this.state, "state on else");
         }
       }
     );
@@ -146,8 +142,6 @@ class App extends React.Component {
   };
 
   render() {
-    console.log(this.state.userSelections, "user selections");
-
     const value = {
       userSelections: this.state.userSelections,
       handleAddToLunch: this.addToLunch,

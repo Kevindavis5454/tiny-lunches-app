@@ -9,7 +9,6 @@ class LunchItem extends React.Component {
       Name: this.props.name,
       Categories: this.props.categories,
     };
-    console.log(itemSelection, "preremoval");
     this.context.handleRemoveFromLunch(itemSelection);
   };
 

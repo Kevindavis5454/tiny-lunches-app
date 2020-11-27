@@ -12,7 +12,6 @@ const PantryItemSort = {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data, "pantryData");
         const masterVegetableHolding = [];
         const masterFruitHolding = [];
         const masterCarbHolding = [];
@@ -489,14 +488,6 @@ const PantryItemSort = {
         drinks();
         desserts();
         combos();
-        console.log(masterVegetableHolding, "pantry Veg list");
-        console.log(masterFruitHolding, "pantry Fruit list");
-        console.log(masterCarbHolding, "pantry Carb list");
-        console.log(masterProteinHolding, "pantry Protein list");
-        console.log(masterDrinkHolding, "pantry Drink list");
-        console.log(masterDessertHolding, "pantry Dessert list");
-        console.log(masterComboHolding, "pantry Combo list");
-        console.log(data, "pantry list");
         return {
           Vegetable: masterVegetableHolding,
           Fruit: masterFruitHolding,

@@ -76,7 +76,6 @@ export default class Pantry extends React.Component {
         />
       );
     });
-    console.log(this.state.pantryCarb, "pantry carb state");
     return (
       <>
         <div className="search-wrapper">

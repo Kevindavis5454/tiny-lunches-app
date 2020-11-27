@@ -32,8 +32,6 @@ html,
   --DarkText: #d46c01;
 }
 
-/* #1e5601 Main 3 divs  #3B3622   #737373    #364F59*/
-
 .header-div {
   height: 15%;
   width: 100%;
@@ -141,13 +139,10 @@ html,
   left: 0;
   right: 0;
   bottom: 0;
-
   z-index: 998;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   box-sizing: border-box;
   padding: 10px;
   transition: all 0.3s ease;
@@ -520,45 +515,12 @@ html,
 
 /* Pantry Component */
 
-.pantry-page-wrapper {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.item-categories-wrapper {
-  height: 15%;
-  width: 100%;
-  background-color: var(--DarkAccent);
-}
-
-.item-category-top-row {
-  height: 50%;
-  width: 100%;
-  display: flex;
-}
-
-.item-category-bottom-row {
-  height: 50%;
-  width: 100%;
-  display: flex;
-}
-
 .item-wrappers-bottom-middle {
   height: 100%;
   width: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.shopping-list-wrapper {
-  height: 85%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--DarkAccent);
 }
 
 .shopping-list-title {
@@ -568,14 +530,6 @@ html,
   justify-content: center;
   align-items: center;
   color: var(--DarkText);
-}
-
-.shopping-list-display-wrapper {
-  width: 100%;
-  height: 90%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .shopping-list-display {
@@ -593,11 +547,6 @@ html,
 
 .shopping-list-display::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
-}
-
-.shopping-item {
-  height: 15%;
-  width: 100%;
 }
 
 /* Item Modal Component */
