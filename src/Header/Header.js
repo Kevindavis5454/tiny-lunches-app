@@ -85,13 +85,15 @@ export default class Header extends React.Component {
   render() {
     return (
       <>
-        <div className="logo-div">
-          <img
-            id="tiny-logo"
-            alt="tiny lunches logo"
-            src={require("./TinyLunchesCropped.png")}
-          ></img>
-        </div>
+        <Link to="/">
+          <div className="logo-div">
+            <img
+              id="tiny-logo"
+              alt="tiny lunches logo"
+              src={require("./TinyLunchesCropped.png")}
+            ></img>
+          </div>
+        </Link>
         {TokenService.hasAuthToken()
           ? this.renderLogoutLink()
           : this.renderLoginLink()}

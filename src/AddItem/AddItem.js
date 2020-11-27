@@ -111,7 +111,7 @@ class AddItem extends React.Component {
     return (
       <>
         <button onClick={this.addCustomItemToPantry} className="btn itembtn">
-          <span className="noselect">Pantry</span>
+          <span className="noselect">+Pantry</span>
           <div className="circle"></div>
         </button>
       </>
@@ -204,7 +204,7 @@ class AddItem extends React.Component {
           <div className="modal-item-right">
             <div className="add-item-button-top-bottom">
               <button onClick={this.addCustomItem} className="btn itembtn">
-                <span className="noselect">Lunch</span>
+                <span className="noselect">+Lunch</span>
                 <div className="circle"></div>
               </button>
             </div>

@@ -3,8 +3,10 @@ import TokenService from "../services/token-service";
 import AuthApiService from "../services/auth-api-service";
 import ReactDom from "react-dom";
 import { withRouter } from "react-router";
+import ApiContext from "../ApiContext";
 
 class SignInModal extends React.Component {
+  static contextType = ApiContext;
   static defaultProps = {
     onLoginSuccess: () => {
       this.props.history.push("/pantry");
@@ -30,6 +32,7 @@ class SignInModal extends React.Component {
         /* Set Local Storage with User Id Here */
         TokenService.saveUserId(res.user_id);
         this.props.onClose();
+        this.context.reRenderMasterLists();
         this.props.history.push("/pantry");
       })
       .catch((res) => {

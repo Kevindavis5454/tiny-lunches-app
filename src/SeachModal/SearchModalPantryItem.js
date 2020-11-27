@@ -3,7 +3,7 @@ import ApiContext from "../ApiContext";
 import config from "../config";
 import updatePantryItem from "../services/update-pantry";
 
-class PantryModalItem extends React.Component {
+class SearchModalPantryItem extends React.Component {
   static contextType = ApiContext;
 
   state = {
@@ -12,9 +12,10 @@ class PantryModalItem extends React.Component {
   };
 
   addItem = () => {
+    const formattedCategories = this.props.categories.join();
     const itemSelection = {
       Name: this.props.name,
-      Categories: this.props.categories,
+      Categories: formattedCategories,
     };
     this.context.handleAddToLunch(itemSelection);
   };
@@ -30,6 +31,7 @@ class PantryModalItem extends React.Component {
       `pantryItem_${this.props.index}`
     );
     itemRemove.remove();
+    this.context.reRenderMasterLists();
     alert(`${this.props.name} has been removed from your pantry`);
   };
 
@@ -43,6 +45,7 @@ class PantryModalItem extends React.Component {
       `${config.API_ENDPOINT}/pantry/${this.props.id}`,
       field
     );
+    this.context.reRenderMasterLists();
   };
 
   patchFields = () => {
@@ -102,6 +105,7 @@ class PantryModalItem extends React.Component {
         );
 
         this.props.render();
+        this.context.reRenderMasterLists();
         this.setState({ showEdit: !this.state.showEdit });
       };
       reRenderList();
@@ -128,23 +132,16 @@ class PantryModalItem extends React.Component {
         );
 
         this.props.render();
+        this.context.reRenderMasterLists();
         this.setState({ showEdit: !this.state.showEdit });
       };
       reRenderList();
     }
   };
 
-  addToShoppingList = () => {
-    const itemSelection = {
-      name: this.props.name,
-      quantity: this.props.quantity,
-      categories: this.props.categories,
-    };
-    this.context.handleAddToShoppingList(itemSelection);
-  };
-
   isCheckedOrNot(string) {
-    const str = this.props.categories;
+    const formattedCategories = this.props.categories.join();
+    const str = formattedCategories;
     if (str.includes(string)) {
       return true;
     } else {
@@ -265,11 +262,12 @@ class PantryModalItem extends React.Component {
   }
 
   renderNotChecked() {
+    const formattedCategories = this.props.categories.join();
     return (
       <>
         <div className="modal-item-left-top">{this.props.name}</div>
         <div className="modal-item-left-bottom">
-          Type: {this.props.categories}
+          Type: {formattedCategories}
         </div>
       </>
     );
@@ -279,7 +277,7 @@ class PantryModalItem extends React.Component {
     const pantryQuantityId = `quantityId_${this.props.index}`;
     return (
       <>
-        <div className="add-item-button-top-bottom-checked">
+        <div className="add-item-button-top-bottom">
           <button onClick={this.patchFields} className="btn itembtn">
             <span className="noselect">Update</span>
             <div className="circle"></div>
@@ -295,6 +293,12 @@ class PantryModalItem extends React.Component {
             text-align="center"
           ></input>
         </div>
+        <div className="add-item-button-top-bottom">
+          <button onClick={this.removeFromPantry} className="btn itembtn">
+            <span className="noselect">Remove</span>
+            <div className="circle"></div>
+          </button>
+        </div>
       </>
     );
   }
@@ -305,8 +309,8 @@ class PantryModalItem extends React.Component {
     return (
       <>
         <div className="add-item-button-top-bottom">
-          <button onClick={this.addToShoppingList} className="btn itembtn">
-            <span className="noselect">+Shopping</span>
+          <button onClick={this.addItem} className="btn itembtn">
+            <span className="noselect">Lunch</span>
             <div className="circle"></div>
           </button>
         </div>
@@ -334,8 +338,8 @@ class PantryModalItem extends React.Component {
           </div>
         </div>
         <div className="add-item-button-top-bottom">
-          <button onClick={this.addItem} className="btn itembtn">
-            <span className="noselect">+Lunch</span>
+          <button onClick={this.removeFromPantry} className="btn itembtn">
+            <span className="noselect">Remove</span>
             <div className="circle"></div>
           </button>
         </div>
@@ -394,17 +398,7 @@ class PantryModalItem extends React.Component {
             {this.state.showEdit
               ? this.renderChecked()
               : this.renderNotChecked()}
-            <div className="delete-button-wrapper">
-              <input
-                onClick={this.removeFromPantry}
-                type="image"
-                className="delete-button"
-                alt="remove icon"
-                src={require("../Images/delete-32.png")}
-              />
-            </div>
           </div>
-
           <div className="modal-item-right">
             {this.state.showEdit
               ? this.renderButtonsChecked()
@@ -416,4 +410,4 @@ class PantryModalItem extends React.Component {
   }
 }
 
-export default PantryModalItem;
+export default SearchModalPantryItem;

@@ -12,6 +12,7 @@ import ItemSort from "./services/item-sort-service";
 import PrivateRoute from "./PrivateRoute";
 import AddItem from "./AddItem/AddItem";
 import GetAllData from "./services/get-all-data";
+import TokenService from "./services/token-service";
 
 class App extends React.Component {
   state = {
@@ -28,11 +29,15 @@ class App extends React.Component {
     name: [],
     masterCheckBox: true,
     pantryCheckBox: false,
-    allCheckBox: false,
     shoppingList: [],
   };
 
   componentDidMount() {
+    this.getMasterList();
+    this.reRenderMasterLists();
+  }
+
+  getMasterList = () => {
     ItemSort.getMasterList(`${config.API_ENDPOINT}/items?user_id=1`).then(
       (sortedData) => {
         this.setState({
@@ -46,30 +51,42 @@ class App extends React.Component {
         });
       }
     );
+  };
+
+  reRenderMasterLists = () => {
     GetAllData.getMasterData(`${config.API_ENDPOINT}/items?user_id=1`).then(
       (data1) => {
+        console.log("I HAVE TRIGGERED");
         const array1 = [];
         const array2 = [];
         console.log(data1, "data1");
         array1.push(data1);
-        GetAllData.getMasterPantryData(
-          `${config.API_ENDPOINT}/pantry/users/${localStorage.getItem(
-            "user_id"
-          )}`
-        ).then((data2) => {
-          console.log(data2, "data2");
-          array2.push(data2);
-          const combined = array1.concat(array2);
-          const joined = [].concat.apply([], combined);
-          console.log(joined, "combined final");
-          this.setState({
-            masterListFull: joined,
-            masterListFiltered: joined,
+        if (TokenService.hasAuthToken()) {
+          GetAllData.getMasterPantryData(
+            `${config.API_ENDPOINT}/pantry/users/${localStorage.getItem(
+              "user_id"
+            )}`
+          ).then((data2) => {
+            console.log(data2, "data2");
+            array2.push(data2);
+            const combined = array1.concat(array2);
+            const joined = [].concat.apply([], combined);
+            console.log(joined, "combined final");
+            this.setState({
+              masterListFull: joined,
+              masterListFiltered: joined,
+            });
           });
-        });
+        } else {
+          this.setState({
+            masterListFull: data1,
+            masterListFiltered: data1,
+          });
+          console.log(this.state, "state on else");
+        }
       }
     );
-  }
+  };
 
   addToLunch = (itemSelection) => {
     this.setState((previousState) => ({
@@ -121,8 +138,11 @@ class App extends React.Component {
   checkThePantryCheckBox = () => {
     this.setState({ pantryCheckBox: !this.state.pantryCheckBox });
   };
-  checkTheAllCheckBox = () => {
-    this.setState({ allCheckBox: !this.state.allCheckBox });
+
+  filterMasterListFiltered = (filter) => {
+    this.setState({
+      masterListFiltered: filter,
+    });
   };
 
   render() {
@@ -135,14 +155,16 @@ class App extends React.Component {
       handleClearLunchList: this.clearLunchList,
       handleCheckTheMasterCheckBox: this.checkTheMasterCheckBox,
       handleCheckThePantryCheckBox: this.checkThePantryCheckBox,
-      handleCheckTheAllCheckBox: this.checkTheAllCheckBox,
       masterCheckBoxStatus: this.state.masterCheckBox,
       pantryCheckBoxStatus: this.state.pantryCheckBox,
-      allCheckBoxStatus: this.state.allCheckBox,
       shoppingList: this.state.shoppingList,
       handleAddToShoppingList: this.addToShoppingList,
       handleRemoveFromShoppingList: this.removeFromShoppingList,
       handleClearShoppingList: this.clearShoppingList,
+      reRenderMasterLists: this.reRenderMasterLists,
+      masterListFiltered: this.state.masterListFiltered,
+      masterListFull: this.state.masterListFull,
+      handleFilterMasterListFiltered: this.filterMasterListFiltered,
     };
 
     return (
@@ -169,9 +191,8 @@ class App extends React.Component {
               <PrivateRoute
                 path={"/pantry"}
                 component={Pantry}
-                data={this.state}
+                data={this.state.shoppingList}
               />
-              <PrivateRoute path={"/additem"} component={AddItem} />
             </div>
           </div>
         </Error>

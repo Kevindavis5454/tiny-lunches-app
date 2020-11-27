@@ -6,6 +6,7 @@ import PantryItemSort from "../services/pantry-sort-service";
 import config from "../config";
 import TokenService from "../services/token-service";
 import saveLunchList from "../services/save-lunch";
+import SearchModal from "../SeachModal/SearchModal";
 
 class MainPage extends React.Component {
   static contextType = ApiContext;
@@ -26,24 +27,12 @@ class MainPage extends React.Component {
     pantryDrink: [],
     pantryDessert: [],
     pantryCombo: [],
+    isSearchOpen: false,
   };
 
   componentDidMount() {
     if (TokenService.hasAuthToken()) {
-      const user = localStorage.getItem("user_id");
-      PantryItemSort.getPantryList(
-        `${config.API_ENDPOINT}/pantry/users/${user}`
-      ).then((sortedData) => {
-        this.setState({
-          pantryVegetable: sortedData.Vegetable,
-          pantryFruit: sortedData.Fruit,
-          pantryCarb: sortedData.Carb,
-          pantryProtein: sortedData.Protein,
-          pantryDrink: sortedData.Drink,
-          pantryDessert: sortedData.Dessert,
-          pantryCombo: sortedData.Combo,
-        });
-      });
+      this.reRender();
     }
   }
 
@@ -97,7 +86,72 @@ class MainPage extends React.Component {
     saveLunchList.saveLunch(`${config.API_ENDPOINT}/savedlunches`, lunchList);
   };
 
+  searchMasterList = (e) => {
+    e.preventDefault();
+    const str = document.getElementById("search-bar-input").value;
+    const searchList = this.props.data.masterListFiltered;
+    const filteredList = [];
+    searchList.filter((item) => {
+      if (item.item_name.includes(str)) {
+        return filteredList.push(item);
+      }
+    });
+    console.log(filteredList, "filtered");
+    this.context.handleFilterMasterListFiltered(filteredList);
+  };
+
+  renderCheckBoxesHasAuth() {
+    return (
+      <>
+        <div className="icons-bottom-middle">
+          <div className="list-check-top">
+            <div className="list-check-left-right">Master</div>
+            <div className="list-check-middle">Pantry</div>
+          </div>
+          <div className="list-check-bottom">
+            <div className="list-check-left-right">
+              <input
+                onClick={this.handleCheckTheMasterCheckBox}
+                defaultChecked={this.context.masterCheckBoxStatus}
+                type="checkbox"
+              />
+            </div>
+            <div className="list-check-middle">
+              <input
+                onClick={this.handleCheckThePantryCheckBox}
+                defaultChecked={this.context.pantryCheckBoxStatus}
+                type="checkbox"
+              />
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  renderCheckBoxesNoAuth() {
+    return (
+      <>
+        <div className="icons-bottom-middle">
+          <div className="list-check-top">
+            <div className="list-check-no-auth">Master</div>
+          </div>
+          <div className="list-check-bottom">
+            <div className="list-check-no-auth">
+              <input
+                onClick={this.handleCheckTheMasterCheckBox}
+                defaultChecked={this.context.masterCheckBoxStatus}
+                type="checkbox"
+              />
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   render() {
+    console.log(this.state, "main page state");
     const renderList = this.props.data.userSelections.map((item, index) => {
       return (
         <LunchItem key={index} name={item.Name} categories={item.Categories} />
@@ -242,36 +296,9 @@ class MainPage extends React.Component {
                 render={this.reRender}
               />
             </div>
-            <div className="icons-bottom-middle">
-              <div className="list-check-top">
-                <div className="list-check-left-right">Master</div>
-                <div className="list-check-middle">Pantry</div>
-                <div className="list-check-left-right">All</div>
-              </div>
-              <div className="list-check-bottom">
-                <div className="list-check-left-right">
-                  <input
-                    onClick={this.handleCheckTheMasterCheckBox}
-                    defaultChecked={this.context.masterCheckBoxStatus}
-                    type="checkbox"
-                  />
-                </div>
-                <div className="list-check-middle">
-                  <input
-                    onClick={this.handleCheckThePantryCheckBox}
-                    defaultChecked={this.context.pantryCheckBoxStatus}
-                    type="checkbox"
-                  />
-                </div>
-                <div className="list-check-left-right">
-                  <input
-                    onClick={this.handleCheckTheAllCheckBox}
-                    defaultChecked={this.context.allCheckBoxStatus}
-                    type="checkbox"
-                  />
-                </div>
-              </div>
-            </div>
+            {TokenService.hasAuthToken()
+              ? this.renderCheckBoxesHasAuth()
+              : this.renderCheckBoxesNoAuth()}
             <div className="icons-bottom-left-right">
               <div
                 className="btnIcon"
@@ -298,18 +325,34 @@ class MainPage extends React.Component {
         </div>
         <div className="lunch-menu-wrapper">
           <div className="lunch-menu-inner-wrapper">
-            <form className="search-form-wrapper">
+            <form
+              onSubmit={this.searchMasterList}
+              className="search-form-wrapper"
+            >
               <div className="search-bar-wrapper">
                 <input
+                  required
+                  id="search-bar-input"
                   className="search-bar"
-                  placeholder="Peanut Butter Jelly Sandwich"
+                  placeholder="Mashed Potatoes"
                 />
               </div>
               <div className="search-button-wrapper">
-                <button id="search-btn" className="btn">
+                <button
+                  onClick={() => this.setState({ isSearchOpen: true })}
+                  type="submit"
+                  id="search-btn"
+                  className="btn"
+                >
                   <span className="noselect">Search</span>
                   <div className="circle"></div>
                 </button>
+                <SearchModal
+                  data={this.props.data.masterListFiltered}
+                  open={this.state.isSearchOpen}
+                  onClose={() => this.setState({ isSearchOpen: false })}
+                  render={this.context.reRenderMasterLists}
+                />
               </div>
             </form>
             <div className="lunch-items-wrapper">

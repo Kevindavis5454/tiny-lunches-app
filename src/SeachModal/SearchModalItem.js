@@ -4,7 +4,7 @@ import addNewCustomItem from "../services/add-custom-item";
 import config from "../config";
 import TokenService from "../services/token-service";
 
-class ModalItem extends React.Component {
+class SearchModalItem extends React.Component {
   static contextType = ApiContext;
 
   addItem = () => {
@@ -16,11 +16,10 @@ class ModalItem extends React.Component {
   };
 
   addItemToPantry = () => {
-    const selectionCategories = this.props.categories.split(",");
     const itemSelection = {
       Quantity: 0,
       Name: this.props.name.toLowerCase(),
-      Categories: selectionCategories,
+      Categories: this.props.categories,
     };
     addNewCustomItem.toPantry(`${config.API_ENDPOINT}/pantry`, itemSelection);
   };
@@ -30,7 +29,7 @@ class ModalItem extends React.Component {
       <>
         <div className="modal-item-right-wrapper">
           <button onClick={this.addItemToPantry} className="btn itembtn">
-            <span className="noselect">+Pantry</span>
+            <span className="noselect">Pantry</span>
             <div className="circle"></div>
           </button>
         </div>
@@ -43,19 +42,20 @@ class ModalItem extends React.Component {
   }
 
   render() {
+    const formattedCategories = this.props.categories.join();
     return (
       <div className="modal-item">
         <div className="modal-item-wrapper">
           <div className="modal-item-left">
             <div className="modal-item-left-top">{this.props.name}</div>
             <div className="modal-item-left-bottom">
-              Type: {this.props.categories}
+              Type: {formattedCategories}
             </div>
           </div>
           <div className="modal-item-right">
             <div className="modal-item-right-wrapper">
               <button onClick={this.addItem} className="btn itembtn">
-                <span className="noselect">+Lunch</span>
+                <span className="noselect">Add</span>
                 <div className="circle"></div>
               </button>
             </div>
@@ -69,4 +69,4 @@ class ModalItem extends React.Component {
   }
 }
 
-export default ModalItem;
+export default SearchModalItem;
