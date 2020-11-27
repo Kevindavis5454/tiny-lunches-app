@@ -5,8 +5,8 @@ Live App: https://tiny-lunches-app.vercel.app/
 API Repo: https://github.com/LadyLudo/tinylunchesapi.git
 
 ![Alt text](/src/Images/TinyLunches1.png?raw=true "Optional Title")
-![Alt text](/src/Images/TinyLunches1.png?raw=true "Optional Title")
-![Alt text](/src/Images/TinyLunches1.png?raw=true "Optional Title")
+![Alt text](/src/Images/TinyLunches2.png?raw=true "Optional Title")
+![Alt text](/src/Images/TinyLunches3.png?raw=true "Optional Title")
 
 This app was created with the purpose of allowing new parents to have an easier time creating lunches for their kids.
 
