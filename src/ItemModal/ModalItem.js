@@ -27,10 +27,18 @@ class ModalItem extends React.Component {
 
   addItemToPantry = () => {
     const selectionCategories = this.props.categories.split(",");
+    const itemsToPost = [];
+    const trimStrings = () => {
+      selectionCategories.map((item) => {
+        return itemsToPost.push(item.trim());
+      });
+    };
+    trimStrings();
+    console.log(itemsToPost, "itemstoPost");
     const itemSelection = {
       Quantity: 0,
       Name: this.props.name.toLowerCase(),
-      Categories: selectionCategories,
+      Categories: itemsToPost,
     };
     addNewCustomItem.toPantry(`${config.API_ENDPOINT}/pantry`, itemSelection);
     this.setState({
