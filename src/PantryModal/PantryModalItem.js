@@ -9,6 +9,8 @@ class PantryModalItem extends React.Component {
   state = {
     reset: [],
     showEdit: false,
+    addedToLunch: false,
+    addedToShop: false,
   };
 
   addItem = () => {
@@ -17,6 +19,9 @@ class PantryModalItem extends React.Component {
       Categories: this.props.categories,
     };
     this.context.handleAddToLunch(itemSelection);
+    this.setState({
+      addedToLunch: true,
+    });
   };
 
   removeFromPantry = () => {
@@ -138,6 +143,9 @@ class PantryModalItem extends React.Component {
       categories: this.props.categories,
     };
     this.context.handleAddToShoppingList(itemSelection);
+    this.setState({
+      addedToShop: true,
+    });
   };
 
   isCheckedOrNot(string) {
@@ -303,7 +311,9 @@ class PantryModalItem extends React.Component {
       <>
         <div className="add-item-button-top-bottom">
           <button onClick={this.addToShoppingList} className="btn itembtn">
-            <span className="noselect">+Shop</span>
+            {!this.state.addedToShop
+              ? this.renderShopNotAdded()
+              : this.renderShopAdded()}
             <div className="circle"></div>
           </button>
         </div>
@@ -332,7 +342,9 @@ class PantryModalItem extends React.Component {
         </div>
         <div className="add-item-button-top-bottom">
           <button onClick={this.addItem} className="btn itembtn">
-            <span className="noselect">+Lunch</span>
+            {!this.state.addedToLunch
+              ? this.renderLunchNotAdded()
+              : this.renderLunchAdded()}
             <div className="circle"></div>
           </button>
         </div>
@@ -360,6 +372,38 @@ class PantryModalItem extends React.Component {
           alt="X icon"
           src={require("../Images/x-mark-32.png")}
         ></img>
+      </>
+    );
+  }
+
+  renderShopAdded() {
+    return (
+      <>
+        <span className="noselect">Added!</span>
+      </>
+    );
+  }
+
+  renderShopNotAdded() {
+    return (
+      <>
+        <span className="noselect">+Shop</span>
+      </>
+    );
+  }
+
+  renderLunchAdded() {
+    return (
+      <>
+        <span className="noselect">Added!</span>
+      </>
+    );
+  }
+
+  renderLunchNotAdded() {
+    return (
+      <>
+        <span className="noselect">+Lunch</span>
       </>
     );
   }

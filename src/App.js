@@ -12,6 +12,7 @@ import ItemSort from "./services/item-sort-service";
 import PrivateRoute from "./PrivateRoute";
 import GetAllData from "./services/get-all-data";
 import TokenService from "./services/token-service";
+import About from "./About/About";
 
 class App extends React.Component {
   state = {
@@ -36,6 +37,8 @@ class App extends React.Component {
     this.reRenderMasterLists();
   }
 
+  //Renders the master list for the Demo / Base App
+
   getMasterList = () => {
     ItemSort.getMasterList(`${config.API_ENDPOINT}/items?user_id=1`).then(
       (sortedData) => {
@@ -51,6 +54,8 @@ class App extends React.Component {
       }
     );
   };
+
+  // Below reRenders the Search list so that the data is up to date incase you make changes on the search list
 
   reRenderMasterLists = () => {
     GetAllData.getMasterData(`${config.API_ENDPOINT}/items?user_id=1`).then(
@@ -177,6 +182,12 @@ class App extends React.Component {
               <Route
                 exact
                 path="/"
+                render={(routeProps) => (
+                  <About {...this.props} {...routeProps} />
+                )}
+              />
+              <Route
+                path="/main"
                 render={(routeProps) => (
                   <MainPage data={this.state} {...this.props} {...routeProps} />
                 )}

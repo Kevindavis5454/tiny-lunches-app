@@ -76,7 +76,6 @@ class MyLists extends React.Component {
     saveLunchList.deleteLunch(`${config.API_ENDPOINT}/savedlunches/${extra}`);
     document.getElementById(remove).remove();
     this.reRender();
-    // optionRemove.remove();
   };
 
   render() {

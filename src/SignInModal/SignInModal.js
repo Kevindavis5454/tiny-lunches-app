@@ -20,11 +20,12 @@ class SignInModal extends React.Component {
     ev.preventDefault();
     this.setState({ error: null });
     const { username, password } = ev.target;
-
-    AuthApiService.postLogin({
+    const loginInfo = {
       username: username.value,
       password: password.value,
-    })
+    };
+
+    AuthApiService.postLogin(loginInfo)
       .then((res) => {
         username.value = "";
         password.value = "";
@@ -33,7 +34,24 @@ class SignInModal extends React.Component {
         TokenService.saveUserId(res.user_id);
         this.props.onClose();
         this.context.reRenderMasterLists();
-        this.props.history.push("/pantry");
+        this.props.history.push("/main");
+      })
+      .catch((res) => {
+        this.setState({ error: res.error });
+      });
+  };
+
+  handleLoginAfterSignUp = (loginInfo) => {
+    this.setState({ error: null });
+
+    AuthApiService.postLogin(loginInfo)
+      .then((res) => {
+        TokenService.saveAuthToken(res.authToken);
+        /* Set Local Storage with User Id Here */
+        TokenService.saveUserId(res.user_id);
+        this.props.onClose();
+        this.context.reRenderMasterLists();
+        this.props.history.push("/main");
       })
       .catch((res) => {
         this.setState({ error: res.error });
@@ -43,6 +61,10 @@ class SignInModal extends React.Component {
   handleSubmit = (ev) => {
     ev.preventDefault();
     const { display_name, username, password } = ev.target;
+    const loginInfo = {
+      username: username.value,
+      password: password.value,
+    };
 
     this.setState({ error: null });
     AuthApiService.postUser({
@@ -54,7 +76,7 @@ class SignInModal extends React.Component {
         display_name.value = "";
         username.value = "";
         password.value = "";
-        this.props.onRegistrationSuccess();
+        this.handleLoginAfterSignUp(loginInfo);
       })
       .catch((res) => {
         this.setState({ error: res.error });

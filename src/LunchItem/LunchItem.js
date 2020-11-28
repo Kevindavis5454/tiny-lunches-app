@@ -1,6 +1,8 @@
 import React from "react";
 import ApiContext from "../ApiContext";
 
+//Items that get Rendered on the Lunch List on Main Page
+
 class LunchItem extends React.Component {
   static contextType = ApiContext;
 
@@ -13,8 +15,9 @@ class LunchItem extends React.Component {
   };
 
   render() {
+    const divId = `lunch-item-${this.props.index}`;
     return (
-      <div className="modal-item">
+      <div id={divId} className="modal-item">
         <div className="modal-item-wrapper">
           <div className="modal-item-left">
             <div className="modal-item-left-top">{this.props.name}</div>

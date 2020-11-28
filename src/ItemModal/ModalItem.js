@@ -4,8 +4,15 @@ import addNewCustomItem from "../services/add-custom-item";
 import config from "../config";
 import TokenService from "../services/token-service";
 
+//Individual Non - Pantry items
+
 class ModalItem extends React.Component {
   static contextType = ApiContext;
+
+  state = {
+    addedToPantry: false,
+    addedToLunch: false,
+  };
 
   addItem = () => {
     const itemSelection = {
@@ -13,6 +20,9 @@ class ModalItem extends React.Component {
       Categories: this.props.categories,
     };
     this.context.handleAddToLunch(itemSelection);
+    this.setState({
+      addedToLunch: true,
+    });
   };
 
   addItemToPantry = () => {
@@ -23,14 +33,51 @@ class ModalItem extends React.Component {
       Categories: selectionCategories,
     };
     addNewCustomItem.toPantry(`${config.API_ENDPOINT}/pantry`, itemSelection);
+    this.setState({
+      addedToPantry: true,
+    });
   };
+
+  renderPantryAdded() {
+    return (
+      <>
+        <span className="noselect">Added!</span>
+      </>
+    );
+  }
+
+  renderPantryNotAdded() {
+    return (
+      <>
+        <span className="noselect">+Pantry</span>
+      </>
+    );
+  }
+
+  renderLunchAdded() {
+    return (
+      <>
+        <span className="noselect">Added!</span>
+      </>
+    );
+  }
+
+  renderLunchNotAdded() {
+    return (
+      <>
+        <span className="noselect">+Lunch</span>
+      </>
+    );
+  }
 
   renderPantryHasAuth() {
     return (
       <>
         <div className="modal-item-right-wrapper">
           <button onClick={this.addItemToPantry} className="btn itembtn">
-            <span className="noselect">+Pantry</span>
+            {!this.state.addedToPantry
+              ? this.renderPantryNotAdded()
+              : this.renderPantryAdded()}
             <div className="circle"></div>
           </button>
         </div>
@@ -55,7 +102,9 @@ class ModalItem extends React.Component {
           <div className="modal-item-right">
             <div className="modal-item-right-wrapper">
               <button onClick={this.addItem} className="btn itembtn">
-                <span className="noselect">+Lunch</span>
+                {!this.state.addedToLunch
+                  ? this.renderLunchNotAdded()
+                  : this.renderLunchAdded()}
                 <div className="circle"></div>
               </button>
             </div>

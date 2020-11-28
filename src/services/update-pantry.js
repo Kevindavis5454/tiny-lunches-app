@@ -12,9 +12,6 @@ const updatePantryItem = {
     })
       .then((res) => {
         if (!res.ok) return res.json().then((e) => Promise.reject(e));
-        else {
-          alert("The Quantity of your Item has been updated");
-        }
       })
       .catch((error) => {
         console.error({ error });
@@ -42,9 +39,6 @@ const updatePantryItem = {
     })
       .then((res) => {
         if (!res.ok) return res.json().then((e) => Promise.reject(e));
-        // else {
-        //   alert("Your Item has been updated!");
-        // }
       })
       .catch((error) => {
         console.error({ error });

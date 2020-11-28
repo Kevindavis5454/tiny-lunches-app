@@ -278,6 +278,22 @@ html,
 .icons-bottom-middle {
   height: 100%;
   width: 60%;
+  display: flex;
+}
+
+.explanation-div {
+  height: 100%;
+  width: 30%;
+  font-size: 0.6em;
+  color: var(--DarkText);
+  text-align: center;
+}
+
+.checkboxes-wrapper {
+  height: 100%;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
 }
 
 .icon {
@@ -329,6 +345,27 @@ html,
   justify-content: center;
   align-items: center;
   background-color: var(--DarkAccent);
+}
+
+.about-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--DarkAccent);
+}
+
+.about-inner-wrapper {
+  height: 85%;
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background-color: var(--DarkSecondary);
+  color: var(--DarkText);
+  font-size: 0.6em;
 }
 
 .lunch-menu-inner-wrapper {
@@ -393,6 +430,14 @@ html,
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.clear-button-wrapper {
+  height: 20%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .shopping-list-clear-button-wrapper {

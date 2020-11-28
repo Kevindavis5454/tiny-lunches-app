@@ -5,6 +5,8 @@ import ModalItem from "./ModalItem";
 import PantryModalItem from "../PantryModal/PantryModalItem";
 import ApiContext from "../ApiContext";
 
+//Renders lists on Main Page
+
 export default class ItemModal extends React.Component {
   static contextType = ApiContext;
 

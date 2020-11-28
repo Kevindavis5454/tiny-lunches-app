@@ -27,6 +27,8 @@ export default class Pantry extends React.Component {
     pantryCombo: [],
   };
 
+  //Allows for updates on the Pantry lists
+
   reRender = () => {
     const user = localStorage.getItem("user_id");
     PantryItemSort.getPantryList(

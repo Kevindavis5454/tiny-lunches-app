@@ -52,7 +52,12 @@ export default class Header extends React.Component {
       <>
         <li>
           <Link to="/" onClick={() => this.setState({ showMenu: false })}>
-            Home
+            About
+          </Link>
+        </li>
+        <li>
+          <Link to="/main" onClick={() => this.setState({ showMenu: false })}>
+            Main Page
           </Link>
         </li>
         <li>
@@ -74,18 +79,25 @@ export default class Header extends React.Component {
 
   renderNoAuthNav() {
     return (
-      <li>
-        <Link to="/" onClick={() => this.setState({ showMenu: false })}>
-          Home
-        </Link>
-      </li>
+      <>
+        <li>
+          <Link to="/" onClick={() => this.setState({ showMenu: false })}>
+            About
+          </Link>
+        </li>
+        <li>
+          <Link to="/main" onClick={() => this.setState({ showMenu: false })}>
+            Main Page
+          </Link>
+        </li>
+      </>
     );
   }
 
   render() {
     return (
       <>
-        <Link to="/">
+        <Link to="/main">
           <div className="logo-div">
             <img
               id="tiny-logo"

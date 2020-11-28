@@ -102,7 +102,7 @@ class AddItem extends React.Component {
       this.props.render();
     }
   };
-
+  // Button changes dependant on JWT Token
   renderAuthPantryButton() {
     return (
       <>

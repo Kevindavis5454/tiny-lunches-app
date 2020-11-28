@@ -28,6 +28,7 @@ class MainPage extends React.Component {
     pantryDessert: [],
     pantryCombo: [],
     isSearchOpen: false,
+    isLunchSaved: false,
   };
 
   componentDidMount() {
@@ -35,7 +36,7 @@ class MainPage extends React.Component {
       this.reRender();
     }
   }
-
+  //Renders updates to the Pantry list
   reRender = () => {
     const user = localStorage.getItem("user_id");
     PantryItemSort.getPantryList(
@@ -63,9 +64,6 @@ class MainPage extends React.Component {
   handleCheckThePantryCheckBox = () => {
     this.context.handleCheckThePantryCheckBox();
   };
-  handleCheckTheAllCheckBox = () => {
-    this.context.handleCheckTheAllCheckBox();
-  };
 
   saveLunchItems = (e) => {
     e.preventDefault();
@@ -91,7 +89,7 @@ class MainPage extends React.Component {
     const searchList = this.props.data.masterListFiltered;
     const filteredList = [];
     searchList.filter((item) => {
-      if (item.item_name.includes(str)) {
+      if (item.item_name.toLowerCase().includes(str.toLowerCase())) {
         return filteredList.push(item);
       }
     });
@@ -102,24 +100,29 @@ class MainPage extends React.Component {
     return (
       <>
         <div className="icons-bottom-middle">
-          <div className="list-check-top">
-            <div className="list-check-left-right">Master</div>
-            <div className="list-check-middle">Pantry</div>
+          <div className="explanation-div">
+            <span>Select the lists to include:</span>
           </div>
-          <div className="list-check-bottom">
-            <div className="list-check-left-right">
-              <input
-                onClick={this.handleCheckTheMasterCheckBox}
-                defaultChecked={this.context.masterCheckBoxStatus}
-                type="checkbox"
-              />
+          <div className="checkboxes-wrapper">
+            <div className="list-check-top">
+              <div className="list-check-left-right">Master</div>
+              <div className="list-check-middle">Pantry</div>
             </div>
-            <div className="list-check-middle">
-              <input
-                onClick={this.handleCheckThePantryCheckBox}
-                defaultChecked={this.context.pantryCheckBoxStatus}
-                type="checkbox"
-              />
+            <div className="list-check-bottom">
+              <div className="list-check-left-right">
+                <input
+                  onClick={this.handleCheckTheMasterCheckBox}
+                  defaultChecked={this.context.masterCheckBoxStatus}
+                  type="checkbox"
+                />
+              </div>
+              <div className="list-check-middle">
+                <input
+                  onClick={this.handleCheckThePantryCheckBox}
+                  defaultChecked={this.context.pantryCheckBoxStatus}
+                  type="checkbox"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -131,18 +134,66 @@ class MainPage extends React.Component {
     return (
       <>
         <div className="icons-bottom-middle">
-          <div className="list-check-top">
-            <div className="list-check-no-auth">Master</div>
+          <div className="explanation-div">
+            <span>Select the lists to include:</span>
           </div>
-          <div className="list-check-bottom">
-            <div className="list-check-no-auth">
-              <input
-                onClick={this.handleCheckTheMasterCheckBox}
-                defaultChecked={this.context.masterCheckBoxStatus}
-                type="checkbox"
-              />
+          <div className="checkboxes-wrapper">
+            <div className="list-check-top">
+              <div className="list-check-no-auth">Master</div>
+            </div>
+            <div className="list-check-bottom">
+              <div className="list-check-no-auth">
+                <input
+                  onClick={this.handleCheckTheMasterCheckBox}
+                  defaultChecked={this.context.masterCheckBoxStatus}
+                  type="checkbox"
+                />
+              </div>
             </div>
           </div>
+        </div>
+      </>
+    );
+  }
+
+  renderLunchSaveAuth() {
+    return (
+      <>
+        <form
+          onSubmit={this.saveLunchItems}
+          className="lunch-save-button-wrapper"
+        >
+          <div className="upper-savedLunch-wrapper">
+            <input
+              required
+              id="saved-lunch-name"
+              className="saved-lunch-input"
+              placeholder="My Lunches Name"
+            />
+          </div>
+          <div className="lower-savedLunch-wrapper">
+            <button type="submit" className="btn">
+              <span className="noselect">Save</span>
+              <div className="circle"></div>
+            </button>
+            <button className="btn" onClick={this.clearLunchList}>
+              <span className="noselect">Clear</span>
+              <div className="circle"></div>
+            </button>
+          </div>
+        </form>
+      </>
+    );
+  }
+
+  renderLunchSaveNoAuth() {
+    return (
+      <>
+        <div className="clear-button-wrapper">
+          <button className="btn" onClick={this.clearLunchList}>
+            <span className="noselect">Clear</span>
+            <div className="circle"></div>
+          </button>
         </div>
       </>
     );
@@ -151,7 +202,12 @@ class MainPage extends React.Component {
   render() {
     const renderList = this.props.data.userSelections.map((item, index) => {
       return (
-        <LunchItem key={index} name={item.Name} categories={item.Categories} />
+        <LunchItem
+          key={index}
+          name={item.Name}
+          categories={item.Categories}
+          index={index}
+        />
       );
     });
 
@@ -355,29 +411,9 @@ class MainPage extends React.Component {
             <div className="lunch-items-wrapper">
               <div className="modal-list-wrapper">{renderList}</div>
             </div>
-            <form
-              onSubmit={this.saveLunchItems}
-              className="lunch-save-button-wrapper"
-            >
-              <div className="upper-savedLunch-wrapper">
-                <input
-                  required
-                  id="saved-lunch-name"
-                  className="saved-lunch-input"
-                  placeholder="My Lunches Name"
-                />
-              </div>
-              <div className="lower-savedLunch-wrapper">
-                <button type="submit" className="btn">
-                  <span className="noselect">Save</span>
-                  <div className="circle"></div>
-                </button>
-                <button className="btn" onClick={this.clearLunchList}>
-                  <span className="noselect">Clear</span>
-                  <div className="circle"></div>
-                </button>
-              </div>
-            </form>
+            {TokenService.hasAuthToken()
+              ? this.renderLunchSaveAuth()
+              : this.renderLunchSaveNoAuth()}
           </div>
         </div>
       </>

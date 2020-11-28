@@ -28,9 +28,6 @@ const addNewCustomItem = {
     })
       .then((res) => {
         if (!res.ok) return res.json().then((e) => Promise.reject(e));
-        else {
-          alert("Your Item has been added to your Pantry");
-        }
       })
       .catch((error) => {
         console.error({ error });

@@ -9,6 +9,8 @@ class SearchModalPantryItem extends React.Component {
   state = {
     reset: [],
     showEdit: false,
+    addedToLunch: false,
+    addedToShop: false,
   };
 
   addItem = () => {
@@ -18,6 +20,9 @@ class SearchModalPantryItem extends React.Component {
       Categories: formattedCategories,
     };
     this.context.handleAddToLunch(itemSelection);
+    this.setState({
+      addedToLunch: true,
+    });
   };
 
   removeFromPantry = () => {
@@ -134,6 +139,19 @@ class SearchModalPantryItem extends React.Component {
       };
       reRenderList();
     }
+  };
+
+  addToShoppingList = () => {
+    const formattedCategories = this.props.categories.join();
+    const itemSelection = {
+      name: this.props.name,
+      quantity: this.props.quantity,
+      categories: formattedCategories,
+    };
+    this.context.handleAddToShoppingList(itemSelection);
+    this.setState({
+      addedToShop: true,
+    });
   };
 
   isCheckedOrNot(string) {
@@ -274,7 +292,7 @@ class SearchModalPantryItem extends React.Component {
     const pantryQuantityId = `quantityId_${this.props.index}`;
     return (
       <>
-        <div className="add-item-button-top-bottom">
+        <div className="add-item-button-top-bottom-checked">
           <button onClick={this.patchFields} className="btn itembtn">
             <span className="noselect">Update</span>
             <div className="circle"></div>
@@ -290,12 +308,6 @@ class SearchModalPantryItem extends React.Component {
             text-align="center"
           ></input>
         </div>
-        <div className="add-item-button-top-bottom">
-          <button onClick={this.removeFromPantry} className="btn itembtn">
-            <span className="noselect">Remove</span>
-            <div className="circle"></div>
-          </button>
-        </div>
       </>
     );
   }
@@ -306,8 +318,10 @@ class SearchModalPantryItem extends React.Component {
     return (
       <>
         <div className="add-item-button-top-bottom">
-          <button onClick={this.addItem} className="btn itembtn">
-            <span className="noselect">Lunch</span>
+          <button onClick={this.addToShoppingList} className="btn itembtn">
+            {!this.state.addedToShop
+              ? this.renderShopNotAdded()
+              : this.renderShopAdded()}
             <div className="circle"></div>
           </button>
         </div>
@@ -335,8 +349,10 @@ class SearchModalPantryItem extends React.Component {
           </div>
         </div>
         <div className="add-item-button-top-bottom">
-          <button onClick={this.removeFromPantry} className="btn itembtn">
-            <span className="noselect">Remove</span>
+          <button onClick={this.addItem} className="btn itembtn">
+            {!this.state.addedToLunch
+              ? this.renderLunchNotAdded()
+              : this.renderLunchAdded()}
             <div className="circle"></div>
           </button>
         </div>
@@ -368,6 +384,38 @@ class SearchModalPantryItem extends React.Component {
     );
   }
 
+  renderShopAdded() {
+    return (
+      <>
+        <span className="noselect">Added!</span>
+      </>
+    );
+  }
+
+  renderShopNotAdded() {
+    return (
+      <>
+        <span className="noselect">+Shop</span>
+      </>
+    );
+  }
+
+  renderLunchAdded() {
+    return (
+      <>
+        <span className="noselect">Added!</span>
+      </>
+    );
+  }
+
+  renderLunchNotAdded() {
+    return (
+      <>
+        <span className="noselect">+Lunch</span>
+      </>
+    );
+  }
+
   render() {
     const pantryItemId = `pantryItem_${this.props.index}`;
     const pantryEditId = `editId_${this.props.index}`;
@@ -395,6 +443,15 @@ class SearchModalPantryItem extends React.Component {
             {this.state.showEdit
               ? this.renderChecked()
               : this.renderNotChecked()}
+            <div className="delete-button-wrapper">
+              <input
+                onClick={this.removeFromPantry}
+                type="image"
+                className="delete-button"
+                alt="remove icon"
+                src={require("../Images/delete-32.png")}
+              />
+            </div>
           </div>
           <div className="modal-item-right">
             {this.state.showEdit
