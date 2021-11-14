@@ -365,7 +365,7 @@ html,
   text-align: center;
   background-color: var(--DarkSecondary);
   color: var(--DarkText);
-  font-size: 0.6em;
+  font-size: .9em;
 }
 
 .lunch-menu-inner-wrapper {
